@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Cyber Adi Susilo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pyodide/0.23.4/full/pyodide.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Audio untuk musik latar -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/20/audio_dc39bbc811.mp3?filename=cyberpunk-123271.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Music Control -->
+    <div class="music-control">
+        <button id="musicToggle" class="btn btn-sm btn-outline-info">
+            <i class="fas fa-play"></i> Musik
+        </button>
+    </div>
+
+    <!-- Matrix Rain Effect -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand glitch" href="https://instagram.com/ru_all12" data-text="Adi Susilo">
+                <i class="fas fa-laptop-code me-2"></i>Adi Susilo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Proyek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Tentang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section dengan Foto -->
+    <section class="hero text-center">
+        <div class="cyber-container">
+            <div class="cyber-glitch-wrapper">
+                <div class="cyber-glitch" data-text="Adi Susilo">Adi Susilo</div>
+            </div>
+            <div class="profile-container">
+                <div class="hexagon-wrapper">
+                    <div class="hexagon">
+                        <img src="/assets/img/profile/adisusilo.jpg" alt="Adi Susilo" class="profile-img">
+                    </div>
+                    <div class="hexagon-border"></div>
+                </div>
+            </div>
+            <p class="lead">Full Stack Developer & Network Security Specialist</p>
+            <div class="cyber-button-container">
+                <a href="#projects" class="cyber-button">
+                    <span class="cyber-button-text">Jelajahi Proyek</span>
+                    <span class="cyber-button-glitch"></span>
+                    <span class="cyber-button-tag">R25</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 cyber-title">Proyek Saya</h2>
+            <div class="row g-4">
+                <!-- Network Admin Tools -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="card-img-top">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Network Admin Tools</h5>
+                            <p class="card-text">Alat administrasi jaringan dengan GUI untuk scanning perangkat, manajemen remote, dan transfer file.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Tkinter</span>
+                                <span class="badge bg-info">Networking</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="network">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112/Network_admin_tools" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CyberScan -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="card-img-top">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">CyberScan</h5>
+                            <p class="card-text">Tools keamanan jaringan untuk scanning port, deteksi kerentanan, dan analisis keamanan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Security</span>
+                                <span class="badge bg-info">Networking</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="cyberscan">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112/cyberscan" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mikrotik Dashboard -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Mikrotik Dashboard</h5>
+                            <p class="card-text">Dashboard monitoring untuk perangkat Mikrotik dengan tampilan modern dan real-time statistics.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">Dashboard</span>
+                                <span class="badge bg-info">Monitoring</span>
+                            </div>
+                            <a href="https://mrx112.github.io/mikrotik-dash-glow/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/mikrotik-dash-glow" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kasir Vista -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top"><!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Adi Susilo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pyodide/0.23.4/full/pyodide.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-laptop-code me-2"></i>Adi Susilo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Proyek</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Tentang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Portofolio Adi Susilo</h1>
+            <p class="lead">Koleksi Aplikasi Web dan utilitas Python yang dapat Anda coba langsung di browser</p>
+            <a href="#projects" class="btn btn-light btn-lg mt-3">Jelajahi Proyek</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Proyek Saya</h2>
+            <div class="row g-4">
+                <!-- Network Admin Tools -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="card-img-top">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Network Admin Tools</h5>
+                            <p class="card-text">Alat administrasi jaringan dengan GUI untuk scanning perangkat, manajemen remote, dan transfer file.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Tkinter</span>
+                                <span class="badge bg-info">Networking</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="network">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112/Network_admin_tools" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CyberScan -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="card-img-top">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">CyberScan</h5>
+                            <p class="card-text">Tools keamanan jaringan untuk scanning port, deteksi kerentanan, dan analisis keamanan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Security</span>
+                                <span class="badge bg-info">Networking</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="cyberscan">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112/cyberscan" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mikrotik Dashboard -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Mikrotik Dashboard</h5>
+                            <p class="card-text">Dashboard monitoring untuk perangkat Mikrotik dengan tampilan modern dan real-time statistics.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">Dashboard</span>
+                                <span class="badge bg-info">Monitoring</span>
+                            </div>
+                            <a href="https://mrx112.github.io/mikrotik-dash-glow/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/mikrotik-dash-glow" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kasir Vista -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top">
+                                <i class="fas fa-cash-register"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kasir Vista Dashboard</h5>
+                            <p class="card-text">Sistem kasir modern dengan dashboard lengkap untuk manajemen penjualan, inventori, dan laporan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">Dashboard</span>
+                                <span class="badge bg-info">Point of Sale</span>
+                            </div>
+                            <a href="https://mrx112.github.io/kasir-vista-dash-38/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/kasir-vista-dash-38" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Sampah -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Sistem Bank Sampah</h5>
+                            <p class="card-text">Aplikasi web untuk manajemen bank sampah dengan fitur nasabah, transaksi, dan laporan keuangan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">PHP</span>
+                                <span class="badge bg-info">Laravel</span>
+                            </div>
+                            <a href="https://mrx112.github.io/Project_PKM_Banksampah/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/Project_PKM_Banksampah" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Integration Tool -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card">
+                        <div class="card-img-top">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">API Integration Tool</h5>
+                            <p class="card-text">Tool untuk integrasi dengan berbagai API RESTful dengan dukungan autentikasi dan parsing response.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Requests</span>
+                                <span class="badge bg-info">REST API</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="api">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Tentang Saya</h2>
+                    <p class="lead">Saya Adi Susilo, seorang pengembang perangkat lunak dengan fokus pada pengembangan tools Python dan aplikasi web yang bermanfaat untuk produktivitas dan automasi.</p>
+                    <p>Saya memiliki pengalaman dalam pengembangan aplikasi desktop, scripting, tools command-line, dan pengembangan web. Portofolio ini menampilkan beberapa proyek yang telah saya kembangkan dan dapat dicoba langsung di browser.</p>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h5>Pengembangan Alat</h5>
+                                <p>Membuat tools yang meningkatkan produktivitas</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-terminal"></i>
+                                </div>
+                                <h5>Scripting</h5>
+                                <p>Automasi tugas dengan script Python</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <h5>Web Development</h5>
+                                <p>Membangun aplikasi web modern</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <h5>Jaringan</h5>
+                                <p>Tools administrasi dan keamanan jaringan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Keahlian Teknis</h5>
+                            <div class="mb-3">
+                                <h6>Python</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Networking</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Web Development</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Database</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Security</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Hubungi Saya</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subjek</label>
+                                    <input type="text" class="form-control" id="subject" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Pesan</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Adi Susilo</h5>
+                    <p>Full Stack Developer & Network Enthusiast</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Terhubung dengan Saya</h5>
+                    <div class="social-links">
+                        <a href="https://github.com/Mrx112" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/adi-susilo-7184451a2/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/ru_all12" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:adi.susilo@example.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Adi Susilo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Jalankan Kode Python</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="console-container" id="output">
+                        <div>Python Console - Ketik kode Python di bawah dan klik "Jalankan"</div>
+                        <div>=============================================</div>
+                        <div id="consoleOutput"></div>
+                    </div>
+                    <textarea class="console-input" id="codeInput" rows="6" placeholder="Masukkan kode Python di sini..."># Contoh kode Python
+print("Halo, ini adalah contoh kode Python!")
+for i in range(5):
+    print(f"Perulangan ke-{i}")</textarea>
+                    <button class="btn run-button w-100" id="runButton">
+                        <i class="fas fa-play-circle me-2"></i>Jalankan Kode
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
+                                <i class="fas fa-cash-register"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kasir Vista Dashboard</h5>
+                            <p class="card-text">Sistem kasir modern dengan dashboard lengkap untuk manajemen penjualan, inventori, dan laporan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">Dashboard</span>
+                                <span class="badge bg-info">Point of Sale</span>
+                            </div>
+                            <a href="https://mrx112.github.io/kasir-vista-dash-38/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/kasir-vista-dash-38" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Sampah -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="project-image">
+                            <span class="badge demo-badge bg-success">Live Demo</span>
+                            <div class="card-img-top">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Sistem Bank Sampah</h5>
+                            <p class="card-text">Aplikasi web untuk manajemen bank sampah dengan fitur nasabah, transaksi, dan laporan keuangan.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-web">Website</span>
+                                <span class="badge bg-secondary">PHP</span>
+                                <span class="badge bg-info">Laravel</span>
+                            </div>
+                            <a href="https://mrx112.github.io/Project_PKM_Banksampah/" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                            </a>
+                            <a href="https://github.com/Mrx112/Project_PKM_Banksampah" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Integration Tool -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card card cyber-card">
+                        <div class="card-img-top">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">API Integration Tool</h5>
+                            <p class="card-text">Tool untuk integrasi dengan berbagai API RESTful dengan dukungan autentikasi dan parsing response.</p>
+                            <div class="mb-3">
+                                <span class="badge badge-language bg-primary">Python</span>
+                                <span class="badge bg-secondary">Requests</span>
+                                <span class="badge bg-info">REST API</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="api">
+                                <i class="fas fa-code me-1"></i>Demo Kode
+                            </button>
+                            <a href="https://github.com/Mrx112" target="_blank" class="btn btn-link btn-sm">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4 cyber-title">Tentang Saya</h2>
+                    <p class="lead">Saya Adi Susilo, seorang pengembang perangkat lunak dengan fokus pada pengembangan tools Python dan aplikasi web yang bermanfaat untuk produktivitas dan automasi.</p>
+                    <p>Saya memiliki pengalaman dalam pengembangan aplikasi desktop, scripting, tools command-line, dan pengembangan web. Portofolio ini menampilkan beberapa proyek yang telah saya kembangkan dan dapat dicoba langsung di browser.</p>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h5>Pengembangan Alat</h5>
+                                <p>Membuat tools yang meningkatkan produktivitas</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-terminal"></i>
+                                </div>
+                                <h5>Scripting</h5>
+                                <p>Automasi tugas dengan script Python</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <h5>Web Development</h5>
+                                <p>Membangun aplikasi web modern</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-center mb-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <h5>Jaringan</h5>
+                                <p>Tools administrasi dan keamanan jaringan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card cyber-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Keahlian Teknis</h5>
+                            <div class="mb-3">
+                                <h6>Python</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Networking</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Web Development</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Database</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Security</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 cyber-title">Hubungi Saya</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card cyber-card">
+                        <div class="card-body">
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="name" class="form-label">Nama</label>
+                                        <input type="text" class="form-control cyber-input" id="name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control cyber-input" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subjek</label>
+                                    <input type="text" class="form-control cyber-input" id="subject" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Pesan</label>
+                                    <textarea class="form-control cyber-input" id="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn cyber-button-small">
+                                    <span class="cyber-button-text">Kirim Pesan</span>
+                                    <span class="cyber-button-glitch"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="glitch" data-text="Adi Susilo">Adi Susilo</h5>
+                    <p>Full Stack Developer & Network Enthusiast</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Terhubung dengan Saya</h5>
+                    <div class="social-links">
+                        <a href="https://github.com/Mrx112" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/adi-susilo-7184451a2/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/ru_all12" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:adi.susilo29@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(0, 255, 255, 0.2);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Adi Susilo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content cyber-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title cyber-title" id="modalTitle">Jalankan Kode Python</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="console-container" id="output">
+                        <div>Python Console - Ketik kode Python di bawah dan klik "Jalankan"</div>
+                        <div>=============================================</div>
+                        <div id="consoleOutput"></div>
+                    </div>
+                    <textarea class="console-input cyber-input" id="codeInput" rows="6" placeholder="Masukkan kode Python di sini..."># Contoh kode Python
+print("Halo, ini adalah contoh kode Python!")
+for i in range(5):
+    print(f"Perulangan ke-{i}")</textarea>
+                    <button class="btn cyber-button-small w-100" id="runButton">
+                        <i class="fas fa-play-circle me-2"></i>Jalankan Kode
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
