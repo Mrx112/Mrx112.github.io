@@ -433,9 +433,15 @@
         }
 
         .card-text {
-            color: #ccc;
+            color: #e8f9ff;
+            text-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
             flex-grow: 1;
             margin-bottom: 15px;
+        }
+
+        .badge {
+            color: #000 !important;
+            font-weight: 700;
         }
 
         .badge {
@@ -510,11 +516,33 @@
             margin-bottom: 15px;
             height: 200px;
             overflow-y: auto;
+            border-radius: 6px;
+        }
+
+        .console-message {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .text-success {
+            color: #00ff7f !important;
+            font-weight: bold;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+            font-weight: bold;
+        }
+
+        .text-danger {
+            color: #ff4d4d !important;
+            font-weight: bold;
         }
 
         .console-input {
-            background: #000;
-            color: var(--neon-green);
+            background: #050505;
+            color: #90ee90;
             border: 1px solid var(--neon-cyan);
             width: 100%;
             padding: 10px;

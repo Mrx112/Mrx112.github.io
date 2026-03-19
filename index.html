@@ -450,6 +450,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <select id="snippetSelect" class="form-select form-select-sm cyber-input mb-2" aria-label="Pilih Snippet Python">
+                            <option value="default" selected>Pilih snippet contoh</option>
+                            <option value="hello">Hello World</option>
+                            <option value="fibonacci">Fibonacci</option>
+                            <option value="fileio">File I/O sederhana</option>
+                            <option value="listcomprehension">List Comprehension</option>
+                        </select>
+                        <button class="btn btn-outline-warning btn-sm me-2" id="copyCode">
+                            <i class="fas fa-clipboard me-1"></i>Copy Code
+                        </button>
+                        <button class="btn btn-outline-success btn-sm me-2" id="downloadCode">
+                            <i class="fas fa-download me-1"></i>Download .py
+                        </button>
+                        <button class="btn btn-outline-dark btn-sm me-2" id="clearOutput">
+                            <i class="fas fa-broom me-1"></i>Clear Output
+                        </button>
                         <button class="btn btn-outline-secondary btn-sm me-2" id="loadFromGithub">
                             <i class="fab fa-github me-1"></i>Load from GitHub
                         </button>
@@ -466,7 +482,7 @@
 print("Hello, this is example Python code!")
 for i in range(5):
     print(f"Loop number-{i}")</textarea>
-                    <button class="btn cyber-button-small w-100" id="runButton">
+                    <button class="btn cyber-button-small w-100" id="runButton" disabled>
                         <i class="fas fa-play-circle me-2"></i>Run Code
                     </button>
                 </div>

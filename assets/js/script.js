@@ -1,12 +1,33 @@
 // assets/js/script.js
 // Inisialisasi Pyodide
 let pyodide;
+let pyodideReady = false;
 
-async function loadPyodide() {
+function setRunState() {
+    const runButton = document.getElementById('runButton');
+    if (runButton) runButton.disabled = !pyodideReady;
+    const outputElement = document.getElementById('consoleOutput');
+    if (outputElement) {
+        if (!pyodideReady) {
+            outputElement.innerHTML = '<div class="text-warning">Pyodide is still loading, please wait...</div>';
+        } else {
+            outputElement.innerHTML = '';
+        }
+    }
+}
+
+async function initPyodide() {
     try {
-        pyodide = await loadPyodide();
+        // Tampilkan status indikator jika tersedia
+        const outputElement = document.getElementById('consoleOutput');
+        if (outputElement) {
+            outputElement.innerHTML = '<div class="text-warning">Memuat Pyodide, mohon tunggu...</div>';
+        }
+
+        pyodide = await window.loadPyodide();
+        pyodideReady = true;
         console.log("Pyodide loaded successfully");
-        
+
         // Setup output redirection
         pyodide.runPython(`
         import sys
@@ -14,14 +35,27 @@ async function loadPyodide() {
         sys.stdout = StringIO()
         sys.stderr = StringIO()
         `);
+
+        setRunState();
+        if (outputElement) {
+            outputElement.innerHTML = '<div class="text-success">Pyodide siap digunakan.</div>';
+        }
     } catch (error) {
+        pyodideReady = false;
         console.error("Error loading Pyodide:", error);
+        const outputElement = document.getElementById('consoleOutput');
+        if (outputElement) {
+            outputElement.innerHTML = `<div class="text-danger">Error loading Pyodide: ${error.message}</div>`;
+        }
+        setRunState();
     }
 }
 
 // Load Pyodide when page is ready
 document.addEventListener('DOMContentLoaded', function() {
-    loadPyodide();
+    pyodideReady = false;
+    setRunState();
+    initPyodide();
     
     // Initialize other components
     initMusicControl();
@@ -325,16 +359,78 @@ print("\\nDemo selesai!")`;
                 title.textContent = 'Jalankan Kode Python';
                 // Kode default sudah di-set di textarea
         }
+        setRunState();
     });
+
+    // Tambahan fitur snippet, copy, download, dan clear output
+    const snippetSelect = document.getElementById('snippetSelect');
+    const copyCodeBtn = document.getElementById('copyCode');
+    const downloadCodeBtn = document.getElementById('downloadCode');
+    const clearOutputBtn = document.getElementById('clearOutput');
+
+    const sampleSnippets = {
+        hello: `print('Hello, Python demo working!')\nfor i in range(3):\n    print('loop', i)`,
+        fibonacci: `def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a+b\n    return a\n\nfor i in range(10):\n    print(i, fib(i))`,
+        fileio: `# Baca/tulis file pada virtual file system pyodide\nwith open('demo.txt', 'w') as f:\n    f.write('Hello from pyodide')\n\nwith open('demo.txt', 'r') as f:\n    print(f.read())`,
+        listcomprehension: `data = [x**2 for x in range(20) if x % 2 == 0]\nprint('Squares even 0..18:', data)`
+    };
+
+    if (snippetSelect) {
+        snippetSelect.addEventListener('change', function() {
+            const codeInput = document.getElementById('codeInput');
+            const value = this.value;
+            if (value !== 'default' && sampleSnippets[value]) {
+                codeInput.value = sampleSnippets[value];
+            }
+        });
+    }
+
+    if (copyCodeBtn) {
+        copyCodeBtn.addEventListener('click', async function() {
+            const codeInput = document.getElementById('codeInput');
+            try {
+                await navigator.clipboard.writeText(codeInput.value);
+                document.getElementById('output').innerHTML = '<div class="text-success">Kode disalin ke clipboard</div>';
+            } catch (e) {
+                document.getElementById('output').innerHTML = '<div class="text-danger">Tidak dapat menyalin: '+e.message+'</div>';
+            }
+        });
+    }
+
+    if (downloadCodeBtn) {
+        downloadCodeBtn.addEventListener('click', function() {
+            const codeInput = document.getElementById('codeInput');
+            const blob = new Blob([codeInput.value], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = (currentProject ? currentProject : 'python_demo') + '.py';
+            link.click();
+            URL.revokeObjectURL(url);
+        });
+    }
+
+    if (clearOutputBtn) {
+        clearOutputBtn.addEventListener('click', function() {
+            document.getElementById('consoleOutput').innerHTML = '';
+        });
+    }
 
     // Menjalankan kode Python
     document.getElementById('runButton').addEventListener('click', async function() {
         const code = document.getElementById('codeInput').value;
         const outputElement = document.getElementById('consoleOutput');
 
-        if (!pyodide) {
-            outputElement.innerHTML = "Pyodide is still loading, please wait a moment...";
+        if (!pyodideReady) {
+            if (outputElement) {
+                outputElement.innerHTML = '<div class="text-warning">Pyodide is still loading, please wait a moment...</div>';
+            }
+            setRunState();
             return;
+        }
+
+        if (outputElement) {
+            outputElement.innerHTML = '<div class="console-message">Menjalankan kode...</div>';
         }
 
         try {
