@@ -60,9 +60,12 @@ function initProjectModal() {
     const projectModal = document.getElementById('projectModal');
     if (!projectModal) return;
 
+    let currentProject = '';
+
     projectModal.addEventListener('show.bs.modal', function(event) {
         const button = event.relatedTarget;
         const project = button.getAttribute('data-project');
+        currentProject = project;
         const title = projectModal.querySelector('.modal-title');
         const codeInput = document.getElementById('codeInput');
 
@@ -248,6 +251,76 @@ print("Hasil POST:", json.dumps(result, indent=2))
 
 print("\\nDemo integrasi API selesai!")`;
                 break;
+            case 'games':
+                title.textContent = 'Python Mini Games - Demo Python';
+                codeInput.value = `# Koleksi Mini Games Python
+import random
+
+def number_guessing_game():
+    """
+    Game tebak angka sederhana
+    """
+    print("=== GAME TEBAK ANGKA ===")
+    target = random.randint(1, 50)
+    attempts = 0
+
+    print("Saya telah memilih angka antara 1-50")
+    print("Coba tebak dalam 5 percobaan!")
+
+    while attempts < 5:
+        guess = random.randint(1, 50)  # Simulasi input user
+        attempts += 1
+        print(f"Percobaan {attempts}: {guess}")
+
+        if guess == target:
+            print(f"Selamat! Menebak dengan benar dalam {attempts} percobaan!")
+            return True
+        elif guess < target:
+            print("Terlalu kecil!")
+        else:
+            print("Terlalu besar!")
+
+    print(f"Maaf, kehabisan percobaan. Angka yang benar: {target}")
+    return False
+
+def simple_calculator():
+    """
+    Kalkulator sederhana
+    """
+    print("\\n=== KALKULATOR SEDERHANA ===")
+
+    operations = [
+        (10, 5, '+', 15),
+        (20, 4, '-', 16),
+        (6, 7, '*', 42),
+        (48, 6, '/', 8)
+    ]
+
+    for a, b, op, expected in operations:
+        if op == '+':
+            result = a + b
+        elif op == '-':
+            result = a - b
+        elif op == '*':
+            result = a * b
+        elif op == '/':
+            result = a / b
+
+        print(f"{a} {op} {b} = {result} (Expected: {expected})")
+        if result == expected:
+            print("✓ Benar")
+        else:
+            print("✗ Salah")
+
+# Jalankan demo
+print("Demo Python Mini Games")
+print("=" * 25)
+
+number_guessing_game()
+simple_calculator()
+
+print("\\nDemo selesai!")`;
+                break;
             default:
                 title.textContent = 'Jalankan Kode Python';
                 // Kode default sudah di-set di textarea
@@ -260,7 +333,7 @@ print("\\nDemo integrasi API selesai!")`;
         const outputElement = document.getElementById('consoleOutput');
 
         if (!pyodide) {
-            outputElement.innerHTML = "Pyodide masih loading, silakan tunggu sebentar...";
+            outputElement.innerHTML = "Pyodide is still loading, please wait a moment...";
             return;
         }
 
@@ -289,6 +362,332 @@ print("\\nDemo integrasi API selesai!")`;
         } catch (error) {
             outputElement.innerHTML = `<div class="text-danger">Error: ${error.message}</div>`;
         }
+    });
+
+    // Load kode dari GitHub
+    document.getElementById('loadFromGithub').addEventListener('click', async function() {
+        const codeInput = document.getElementById('codeInput');
+        const outputElement = document.getElementById('consoleOutput');
+
+        if (!currentProject) {
+            outputElement.innerHTML = '<div class="text-warning">Please select a project first</div>';
+            return;
+        }
+
+        outputElement.innerHTML = '<div>Loading code from GitHub...</div>';
+
+        try {
+            let repoUrl = '';
+            switch(currentProject) {
+                case 'network':
+                    repoUrl = 'https://raw.githubusercontent.com/Mrx112/Network_admin_tools/main/';
+                    break;
+                case 'cyberscan':
+                    repoUrl = 'https://raw.githubusercontent.com/Mrx112/cyberscan/main/';
+                    break;
+                case 'api':
+                    // Untuk API tool, buat kode demo saja
+                    outputElement.innerHTML = '<div>API demo code is already loaded</div>';
+                    return;
+                default:
+                    outputElement.innerHTML = '<div class="text-warning">No GitHub repository for this project</div>';
+                    return;
+            }
+
+            // Coba load main.py atau script utama
+            const mainFiles = ['main.py', 'cyberscan.py', 'network_admin.py', 'app.py'];
+            let codeLoaded = false;
+
+            for (const file of mainFiles) {
+                try {
+                    const response = await fetch(repoUrl + file);
+                    if (response.ok) {
+                        const code = await response.text();
+                        codeInput.value = code;
+                        outputElement.innerHTML = `<div class="text-success">Code from ${file} loaded successfully</div>`;
+                        codeLoaded = true;
+                        break;
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+
+            if (!codeLoaded) {
+                outputElement.innerHTML = '<div class="text-warning">Cannot find main Python file in repository</div>';
+            }
+
+        } catch (error) {
+            outputElement.innerHTML = `<div class="text-danger">Error loading from GitHub: ${error.message}</div>`;
+        }
+    });
+
+    // Reset kode ke demo default
+    document.getElementById('resetCode').addEventListener('click', function() {
+        const codeInput = document.getElementById('codeInput');
+        const title = projectModal.querySelector('.modal-title');
+
+        // Reset ke kode demo berdasarkan proyek
+        switch(currentProject) {
+            case 'network':
+                title.textContent = 'Network Admin Tools - Demo Python';
+                codeInput.value = `# Contoh fungsi network scanning
+import socket
+import subprocess
+import platform
+
+def ping_host(host):
+    """
+    Ping host untuk mengecek konektivitas
+    """
+    param = "-n" if platform.system().lower() == "windows" else "-c"
+    command = ["ping", param, "1", host]
+    return subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
+
+def scan_port(host, port):
+    """
+    Scan port tertentu pada host
+    """
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        result = sock.connect_ex((host, port))
+        sock.close()
+        return result == 0
+    except:
+        return False
+
+# Test konektivitas
+host = "google.com"
+print(f"Ping {host}: {'Berhasil' if ping_host(host) else 'Gagal'}")
+
+# Test port scanning
+host = "example.com"
+ports = [80, 443, 22, 21, 53]
+
+print(f"\\nScanning port untuk {host}")
+for port in ports:
+    if scan_port(host, port):
+        print(f"Port {port}: TERBUKA")
+    else:
+        print(f"Port {port}: tertutup")`;
+                break;
+            case 'cyberscan':
+                title.textContent = 'CyberScan - Demo Python';
+                codeInput.value = `# Contoh fungsi cybersecurity scanning
+import socket
+import subprocess
+import platform
+from datetime import datetime
+
+def network_scan():
+    """
+    Simulasi network scanning
+    """
+    print("Memulai network scan...")
+    print("=" * 40)
+
+    # Simulasi hasil scanning
+    devices = [
+        {"ip": "192.168.1.1", "hostname": "router.local", "status": "active", "ports": [80, 443, 22]},
+        {"ip": "192.168.1.10", "hostname": "pc-01.local", "status": "active", "ports": [80, 135, 139, 445]},
+        {"ip": "192.168.1.15", "hostname": "server.local", "status": "active", "ports": [21, 22, 80, 443, 3306]},
+        {"ip": "192.168.1.20", "hostname": "printer.local", "status": "inactive", "ports": [80, 443]},
+    ]
+
+    print(f"{'IP Address':<15} {'Hostname':<15} {'Status':<10} {'Open Ports'}")
+    print("-" * 55)
+
+    for device in devices:
+        if device['status'] == 'active':
+            ports = ', '.join(map(str, device['ports']))
+            print(f"{device['ip']:<15} {device['hostname']:<15} {device['status']:<10} {ports}")
+
+    return devices
+
+def check_vulnerabilities(devices):
+    """
+    Simulasi vulnerability check
+    """
+    print("\\nMemeriksa kerentanan...")
+    print("=" * 40)
+
+    vulnerabilities = []
+
+    for device in devices:
+        if device['status'] == 'active':
+            # Cek port yang berpotensi rentan
+            vulnerable_ports = [port for port in device['ports'] if port in [21, 23, 135, 139, 445]]
+
+            if vulnerable_ports:
+                for port in vulnerable_ports:
+                    vuln = {
+                        "ip": device['ip'],
+                        "port": port,
+                        "severity": "Medium",
+                        "description": f"Port {port} terbuka yang mungkin rentan"
+                    }
+                    vulnerabilities.append(vuln)
+
+    if vulnerabilities:
+        print("Kerentanan ditemukan:")
+        print(f"{'IP':<15} {'Port':<5} {'Severity':<10} {'Description'}")
+        print("-" * 60)
+        for vuln in vulnerabilities:
+            print(f"{vuln['ip']:<15} {vuln['port']:<5} {vuln['severity']:<10} {vuln['description']}")
+    else:
+        print("Tidak ada kerentanan yang ditemukan.")
+
+    return vulnerabilities
+
+# Jalankan scanning
+devices = network_scan()
+vulnerabilities = check_vulnerabilities(devices)
+
+print("\\nScan selesai pada:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))`;
+                break;
+            case 'api':
+                title.textContent = 'API Integration - Demo Python';
+                codeInput.value = `# Contoh integrasi API
+import requests
+import json
+
+def call_api(url, method='GET', data=None, headers=None):
+    """
+    Fungsi untuk memanggil API
+    """
+    try:
+        if method.upper() == 'GET':
+            response = requests.get(url, headers=headers)
+        elif method.upper() == 'POST':
+            response = requests.post(url, json=data, headers=headers)
+        elif method.upper() == 'PUT':
+            response = requests.put(url, json=data, headers=headers)
+        elif method.upper() == 'DELETE':
+            response = requests.delete(url, headers=headers)
+        else:
+            return {"error": "Method tidak valid"}
+
+        # Cek status code
+        if response.status_code >= 200 and response.status_code < 300:
+            try:
+                return response.json()
+            except:
+                return {"text": response.text, "status_code": response.status_code}
+        else:
+            return {"error": f"Error {response.status_code}", "details": response.text}
+
+    except Exception as e:
+        return {"error": f"Exception: {str(e)}"}
+
+# Contoh penggunaan
+print("Contoh Integrasi API")
+print("=" * 30)
+
+# Contoh 1: GET request ke API publik
+print("\\n1. GET request ke JSONPlaceholder API:")
+result = call_api('https://jsonplaceholder.typicode.com/posts/1')
+print("Hasil:", json.dumps(result, indent=2))
+
+# Contoh 2: GET request dengan parameter
+print("\\n2. GET request dengan parameter:")
+result = call_api('https://jsonplaceholder.typicode.com/comments?postId=1')
+if 'error' not in result:
+    print(f"Jumlah komentar: {len(result)}")
+else:
+    print("Error:", result['error'])
+
+# Contoh 3: POST request
+print("\\n3. POST request:")
+data = {
+    "title": "Test Title",
+    "body": "Test body content",
+    "userId": 1
+}
+result = call_api('https://jsonplaceholder.typicode.com/posts', 'POST', data)
+print("Hasil POST:", json.dumps(result, indent=2))
+
+print("\\nDemo integrasi API selesai!")`;
+                break;
+            case 'games':
+                title.textContent = 'Python Mini Games - Demo Python';
+                codeInput.value = `# Koleksi Mini Games Python
+import random
+
+def number_guessing_game():
+    """
+    Game tebak angka sederhana
+    """
+    print("=== GAME TEBAK ANGKA ===")
+    target = random.randint(1, 50)
+    attempts = 0
+
+    print("Saya telah memilih angka antara 1-50")
+    print("Coba tebak dalam 5 percobaan!")
+
+    while attempts < 5:
+        guess = random.randint(1, 50)  # Simulasi input user
+        attempts += 1
+        print(f"Percobaan {attempts}: {guess}")
+
+        if guess == target:
+            print(f"Selamat! Menebak dengan benar dalam {attempts} percobaan!")
+            return True
+        elif guess < target:
+            print("Terlalu kecil!")
+        else:
+            print("Terlalu besar!")
+
+    print(f"Maaf, kehabisan percobaan. Angka yang benar: {target}")
+    return False
+
+def simple_calculator():
+    """
+    Kalkulator sederhana
+    """
+    print("\\n=== KALKULATOR SEDERHANA ===")
+
+    operations = [
+        (10, 5, '+', 15),
+        (20, 4, '-', 16),
+        (6, 7, '*', 42),
+        (48, 6, '/', 8)
+    ]
+
+    for a, b, op, expected in operations:
+        if op == '+':
+            result = a + b
+        elif op == '-':
+            result = a - b
+        elif op == '*':
+            result = a * b
+        elif op == '/':
+            result = a / b
+
+        print(f"{a} {op} {b} = {result} (Expected: {expected})")
+        if result == expected:
+            print("✓ Benar")
+        else:
+            print("✗ Salah")
+
+# Jalankan demo
+print("Demo Python Mini Games")
+print("=" * 25)
+
+number_guessing_game()
+simple_calculator()
+
+print("\\nDemo selesai!")`;
+                break;
+            default:
+                title.textContent = 'Jalankan Kode Python';
+                codeInput.value = `# Contoh kode Python
+print("Halo, ini adalah contoh kode Python!")
+for i in range(5):
+    print(f"Perulangan ke-{i}")`;
+        }
+
+        document.getElementById('consoleOutput').innerHTML = '<div>Code has been reset to demo</div>';
     });
 }
 
