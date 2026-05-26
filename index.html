@@ -1,524 +1,519 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adi Susilo's Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adi Susilo | Network Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+<link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <!-- Audio untuk musik latar -->
-    <audio id="bgMusic" loop>
-        <source src="assets/audio/cyber-spnk-223448.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
 
-    <!-- Music Control -->
-    <div class="music-control">
-        <button id="musicToggle" class="btn btn-sm btn-outline-info">
-            <i class="fas fa-play"></i> Music
-        </button>
+<audio id="bgMusic" src="./audio/cyber-spnk-223448.mp3" autoplay loop playsinline></audio>
+
+<canvas id="netCanvas"></canvas>
+<div class="scanline"></div>
+<div id="cur"></div>
+<div id="cur-dot"></div>
+
+<!-- Canvas tambahan untuk efek garis dinamis dari kursor (IT Network Theme) -->
+<canvas id="cursorLineCanvas"></canvas>
+
+<nav id="navbar">
+  <div class="nav-logo">ADI_SUSILO.exe</div>
+  <div class="nav-links">
+    <a href="#about">_TENTANG</a>
+    <a href="#experience">_KARIR</a>
+    <a href="#projects">_PROYEK</a>
+    <a href="#certifications">_SERTIFIKASI</a>
+    <a href="#contact">_KONTAK</a>
+  </div>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    ONLINE · SEMARANG, ID
+  </div>
+</nav>
+
+<div class="scroll-ind" id="scrollInd">
+  <div class="si-dot active" data-sec="hero"></div>
+  <div class="si-dot" data-sec="about"></div>
+  <div class="si-dot" data-sec="experience"></div>
+  <div class="si-dot" data-sec="projects"></div>
+  <div class="si-dot" data-sec="certifications"></div>
+  <div class="si-dot" data-sec="contact"></div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-visuals" aria-hidden="true">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-scan-band"></div>
+    <div class="hero-shape hero-shape-1"></div>
+    <div class="hero-shape hero-shape-2"></div>
+    <div class="hero-shape hero-shape-3"></div>
+    <div class="hero-diag-beams"></div>
+    <div class="hero-node-net" aria-hidden="true">
+      <span class="node node-1"></span>
+      <span class="node node-2"></span>
+      <span class="node node-3"></span>
+      <span class="node node-4"></span>
+      <div class="net-line net-1"></div>
+      <div class="net-line net-2"></div>
+      <div class="net-line net-3"></div>
+    </div>
+    <div class="hero-scan-bars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero-artwork">
+      <div class="hero-monitor">
+        <div class="monitor-header"></div>
+        <div class="monitor-screen">
+          <div class="monitor-code-line line1"></div>
+          <div class="monitor-code-line line2"></div>
+          <div class="monitor-code-line line3"></div>
+          <div class="monitor-code-line line4"></div>
+        </div>
+        <div class="monitor-base"></div>
+      </div>
+      <div class="hero-chip">
+        <div class="chip-core"></div>
+      </div>
+      <div class="hero-data-stream">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="terminal-header" id="termHeader" style="opacity:0">
+        <span>●</span> /usr/bin/portfolio — bash — 80×24
+      </div>
+      <h1 class="hero-name" id="heroName" style="opacity:0">
+        ADI<br>
+        <span class="accent">SUSILO</span>
+      </h1>
+      <div class="hero-role" id="heroRole" style="opacity:0">
+        <span id="typedText"></span><span class="typed-cursor">_</span>
+      </div>
+      <p class="hero-desc reveal" id="heroDesc">
+        Saya adalah Full Stack Developer dan Network Enthusiast. Fokus pada pengembangan tools Python, aplikasi web modern, dan otomasi jaringan untuk tim operasi TI.
+      </p>
+      <div class="hero-cta reveal">
+        <a href="#contact" class="btn-primary">HUBUNGI SAYA</a>
+        <a href="#experience" class="btn-outline">LIHAT KARIR →</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="hero-profile-card">
+        <img src="./img/me.png" alt="Adi Susilo" class="profile-photo">
+        <div class="profile-summary">
+          <p>Full Stack Developer & Network Enthusiast. Mengembangkan tools Python produktivitas, aplikasi web bisnis, dan solusi keamanan jaringan.</p>
+          <div class="profile-tags">
+            <span class="profile-tag">Python</span>
+            <span class="profile-tag">Networking</span>
+            <span class="profile-tag">Web</span>
+            <span class="profile-tag">Security</span>
+          </div>
+        </div>
+      </div>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="t-dot" style="background:#ff5f56"></div>
+          <div class="t-dot" style="background:#ffbd2e"></div>
+          <div class="t-dot" style="background:#27c93f"></div>
+          <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--dim);margin-left:auto">network@adi:~</span>
+        </div>
+        <div class="terminal-body" id="termBody">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding-top:5rem">
+  <span class="sec-tag">// 01 — TENTANG SAYA</span>
+  <h2 class="sec-title">Siapa Saya</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Saya adalah Full Stack Developer dan Network Enthusiast. Fokus pada pengembangan tools Python, aplikasi web modern, dan otomasi jaringan untuk tim operasi TI.</p>
+      <p>Pengalaman saya mencakup pengelolaan infrastruktur jaringan skala enterprise, administrasi Linux, serta pembuatan solusi digital yang mendukung operasional dan keamanan. Saya percaya bahwa perpaduan software dan jaringan adalah kunci untuk memberikan nilai tambah bagi tim TI dan pengguna akhir.</p>
+      <div class="skill-list">
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name">NETWORKING & ROUTING</span><span class="skill-pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="95"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name">LINUX ADMINISTRATION</span><span class="skill-pct">88%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name">CYBER SECURITY</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="82"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name">PYTHON / SCRIPTING</span><span class="skill-pct">78%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="78"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name">FIBER OPTIC</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-pct="90"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card"><span class="stat-num" data-count="7">0</span><span class="stat-label">Tahun pengalaman</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="35000">0</span><span class="stat-label">User dikelola</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="3">0</span><span class="stat-label">Partisipasi Lomba CTF</span></div>
+      <div class="stat-card"><span class="stat-num" data-count="12">0</span><span class="stat-label">Proyek selesai</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <span class="sec-tag">// 02 — RIWAYAT PROFESIONAL</span>
+  <h2 class="sec-title">Perjalanan Karir</h2>
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div class="exp-dot active"></div>
+      <div class="exp-date">MEI 2026 — SEKARANG</div>
+      <div class="exp-company">PT. Bach Multi Global Semarang</div>
+      <div class="exp-role">Network Engineer · IFORTE @ UNDIP</div>
+      <div class="exp-desc">Mengelola jaringan kampus berkapasitas 2.04 Gbps, administrasi core switch/router, incident response 24/7, dan audit infrastruktur untuk 35.000+ pengguna.</div>
     </div>
 
-    <!-- Matrix Rain Effect -->
-    <canvas id="matrix"></canvas>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand glitch" href="https://instagram.com/ru_all12" data-text="Adi Susilo">
-                <i class="fas fa-laptop-code me-2"></i>Adi Susilo
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section dengan Foto -->
-    <section class="hero text-center">
-        <div class="cyber-container">
-            <div class="cyber-glitch-wrapper">
-                <div class="cyber-glitch" data-text="Adi Susilo">Adi Susilo</div>
-            </div>
-            <div class="profile-container">
-                <div class="hexagon-wrapper">
-                    <div class="hexagon">
-                        <img src="assets/img/profile/adi2.jpg" alt="Adi Susilo" class="profile-img">
-                    </div>
-                    <div class="hexagon-border"></div>
-                </div>
-            </div>
-            <p class="lead">Full Stack Developer & Network Security</p>
-            <div class="cyber-button-container">
-                <a href="#projects" class="cyber-button">
-                    <span class="cyber-button-text">Explore Projects</span>
-                    <span class="cyber-button-glitch"></span>
-                    <span class="cyber-button-tag">R25</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 cyber-title">My Projects</h2>
-            <div class="row g-4">
-                <!-- Network Admin Tools -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="card-img-top">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Network Admin Tools</h5>
-                            <p class="card-text">Network administration tool with GUI for device scanning, remote management, and file transfer.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-secondary">Tkinter</span>
-                                <span class="badge bg-info">Networking</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="network">
-                                <i class="fas fa-code me-1"></i>Code Demo
-                            </button>
-                            <a href="https://github.com/Mrx112/Network_admin_tools" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CyberScan -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="card-img-top">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">CyberScan</h5>
-                            <p class="card-text">Network security tools for port scanning, vulnerability detection, and security analysis.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-secondary">Security</span>
-                                <span class="badge bg-info">Networking</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="cyberscan">
-                                <i class="fas fa-code me-1"></i>Code Demo
-                            </button>
-                            <a href="https://github.com/Mrx112/cyberscan" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scanning Tools Site -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="card-img-top">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Scanning Tools Site</h5>
-                            <p class="card-text">Network security tools for IP scanning, GeoIP Lookup, Port, Multi-Endpoint, and Domain Resolution.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">C++</span>
-                                <span class="badge bg-secondary">Security</span>
-                                <span class="badge bg-info">Networking</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="scanning-tools-site">
-                                <i class="fas fa-code me-1"></i>Code Demo
-                            </button>
-                            <a href="https://github.com/Mrx112/Scanning-Tools-Site" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Mikrotik Dashboard -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="project-image">
-                            <span class="badge demo-badge bg-success">Live Demo</span>
-                            <div class="card-img-top">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Mikrotik Dashboard</h5>
-                            <p class="card-text">Monitoring dashboard for Mikrotik devices with modern display and real-time statistics.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-success">Website</span>
-                                <span class="badge bg-secondary">Dashboard</span>
-                                <span class="badge bg-info">Monitoring</span>
-                            </div>
-                            <a href="https://mikrotik-dash-glow.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
-                            </a>
-                            <a href="https://github.com/Mrx112/mikrotik-dash-glow" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kasir Vista -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="project-image">
-                            <span class="badge demo-badge bg-success">Live Demo</span>
-                            <div class="card-img-top">
-                                <i class="fas fa-cash-register"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Kasir Vista Dashboard</h5>
-                            <p class="card-text">Modern cashier system with complete dashboard for sales management, inventory, and reports.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-success">Website</span>
-                                <span class="badge bg-secondary">Dashboard</span>
-                                <span class="badge bg-info">Point of Sale</span>
-                            </div>
-                            <a href="https://kasir-vista-dash-38.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
-                            </a>
-                            <a href="https://github.com/Mrx112/kasir-vista-dash-38" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bank Sampah -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="project-image">
-                            <span class="badge demo-badge bg-success">Live Demo</span>
-                            <div class="card-img-top">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Sistem Bank Sampah</h5>
-                            <p class="card-text">Web application for waste bank management with customer features, transactions, and financial reports.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-success">Website</span>
-                                <span class="badge bg-secondary">PHP</span>
-                                <span class="badge bg-info">Laravel</span>
-                            </div>
-                            <a href="https://project-pkm-banksampah.vercel.app" target="_blank" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
-                            </a>
-                            <a href="https://github.com/Mrx112/Project_PKM_Banksampah" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- API Integration Tool -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="card-img-top">
-                            <i class="fas fa-plug"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">API Integration Tool</h5>
-                            <p class="card-text">Tool for integration with various RESTful APIs with authentication support and response parsing.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-secondary">Requests</span>
-                                <span class="badge bg-info">REST API</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="api">
-                                <i class="fas fa-code me-1"></i>Code Demo
-                            </button>
-                            <a href="https://github.com/Mrx112" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Python Mini Games -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="card-img-top">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Python Mini Games</h5>
-                            <p class="card-text">Collection of simple games in Python including number guessing, tic-tac-toe, and other game algorithms.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-primary">Python</span>
-                                <span class="badge bg-secondary">Games</span>
-                                <span class="badge bg-info">Algorithms</span>
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="games">
-                                <i class="fas fa-code me-1"></i>Code Demo
-                            </button>
-                            <a href="https://github.com/Mrx112/python-mini-games" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PremiumPack Company Profile -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card card cyber-card">
-                        <div class="project-image">
-                            <span class="badge demo-badge bg-success">Live Demo</span>
-                            <div class="card-img-top">
-                                <i class="fas fa-building"></i>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">PremiumPack Company Profile</h5>
-                            <p class="card-text">Modern company profile website for a packaging business with comprehensive features to showcase products and services.</p>
-                            <div class="mb-3">
-                                <span class="badge bg-success">Website</span>
-                                <span class="badge bg-secondary">Company Profile</span>
-                                <span class="badge bg-info">Packaging</span>
-                            </div>
-                            <a href="http://company-profile-demo.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-external-link-alt me-1"></i>Live Demo
-                            </a>
-                            <a href="https://github.com/Mrx112/Company-Profile-Demo" target="_blank" class="btn btn-link btn-sm">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h2 class="mb-4 cyber-title">About Me</h2>
-                    <p class="lead">I am Adi Susilo, a software developer focused on developing useful Python tools and web applications for productivity and automation.</p>
-                    <p>I have experience in desktop application development, scripting, command-line tools, and web development. This portfolio showcases some projects I have developed and can be tried directly in the browser.</p>
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <div class="text-center mb-4">
-                                <div class="feature-icon">
-                                    <i class="fas fa-code"></i>
-                                </div>
-                                <h5>Tool Development</h5>
-                                <p>Creating tools that enhance productivity</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-center mb-4">
-                                <div class="feature-icon">
-                                    <i class="fas fa-terminal"></i>
-                                </div>
-                                <h5>Scripting</h5>
-                                <p>Automating tasks with Python scripts</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-center mb-4">
-                                <div class="feature-icon">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <h5>Web Development</h5>
-                                <p>Building modern web applications</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-center mb-4">
-                                <div class="feature-icon">
-                                    <i class="fas fa-network-wired"></i>
-                                </div>
-                                <h5>Networking</h5>
-                                <p>Network administration and security tools</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card cyber-card">
-                        <div class="card-body">
-                            <h5 class="card-title">Technical Skills</h5>
-                            <div class="mb-3">
-                                <h6>Python</h6>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Networking</h6>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Web Development</h6>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Database</h6>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 75%"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Security</h6>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 70%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 cyber-title">Contact Me</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card cyber-card">
-                        <div class="card-body">
-                            <form id="contactForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control cyber-input" id="name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control cyber-input" id="email" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control cyber-input" id="subject" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control cyber-input" id="message" rows="5" required></textarea>
-                                </div>
-                                <button type="submit" class="btn cyber-button-small">
-                                    <span class="cyber-button-text">Send Message</span>
-                                    <span class="cyber-button-glitch"></span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5 class="glitch" data-text="Adi Susilo">Adi Susilo</h5>
-                    <p>Full Stack Developer & Network Enthusiast</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <h5>Connect with Me</h5>
-                    <div class="social-links">
-                        <a href="https://github.com/Mrx112" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/adi-susilo-7184451a2/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.instagram.com/ru_all12" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="mailto:adi.susilo29@gmail.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="mt-4 mb-4" style="border-color: rgba(0, 255, 255, 0.2);">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 Adi Susilo. All rights reserved.</p>
-            </div>
-            <div class="text-center mt-2">
-                <small>Last updated: 2025</small>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Project Modal -->
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content cyber-modal">
-                <div class="modal-header">
-                    <h5 class="modal-title cyber-title" id="modalTitle">Run Python Code</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <select id="snippetSelect" class="form-select form-select-sm cyber-input mb-2" aria-label="Pilih Snippet Python">
-                            <option value="default" selected>Pilih snippet contoh</option>
-                            <option value="hello">Hello World</option>
-                            <option value="fibonacci">Fibonacci</option>
-                            <option value="fileio">File I/O sederhana</option>
-                            <option value="listcomprehension">List Comprehension</option>
-                        </select>
-                        <button class="btn btn-outline-warning btn-sm me-2" id="copyCode">
-                            <i class="fas fa-clipboard me-1"></i>Copy Code
-                        </button>
-                        <button class="btn btn-outline-success btn-sm me-2" id="downloadCode">
-                            <i class="fas fa-download me-1"></i>Download .py
-                        </button>
-                        <button class="btn btn-outline-dark btn-sm me-2" id="clearOutput">
-                            <i class="fas fa-broom me-1"></i>Clear Output
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm me-2" id="loadFromGithub">
-                            <i class="fab fa-github me-1"></i>Load from GitHub
-                        </button>
-                        <button class="btn btn-outline-info btn-sm" id="resetCode">
-                            <i class="fas fa-undo me-1"></i>Reset Code
-                        </button>
-                    </div>
-                    <div class="console-container" id="output">
-                        <div>Python Console - Type Python code below and click "Run"</div>
-                        <div>=============================================</div>
-                        <div id="consoleOutput"></div>
-                    </div>
-                    <textarea class="console-input cyber-input" id="codeInput" rows="6" placeholder="Enter Python code here..."># Example Python code
-print("Hello, this is example Python code!")
-for i in range(5):
-    print(f"Loop number-{i}")</textarea>
-                    <button class="btn cyber-button-small w-100" id="runButton" disabled>
-                        <i class="fas fa-play-circle me-2"></i>Run Code
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-date">FEB 2026 — MEI 2026</div>
+      <div class="exp-company">PT. Karya Mitra Mechatronics Sejahtera</div>
+      <div class="exp-role">Network Engineer · Kontrak</div>
+      <div class="exp-desc">Audit jaringan fiber optic, restorasi link putus, dan penyusunan laporan performa untuk stakeholder.</div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-date">OKT 2025 — DES 2025</div>
+      <div class="exp-company">PT Golden Tekstil Indonesia Kendal</div>
+      <div class="exp-role">IT Hardware Specialist</div>
+      <div class="exp-desc">Instalasi komputer & perangkat jaringan pabrik, diagnostik dan perbaikan hardware secara menyeluruh.</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-date">MAR 2024 — OKT 2025</div>
+      <div class="exp-company">PT. BMPNet</div>
+      <div class="exp-role">Network Field Technician</div>
+      <div class="exp-desc">Instalasi dan pemeliharaan jaringan klien ISP, monitoring performa, dan penerapan SOP lapangan.</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-date">JUL 2021 — JUN 2022</div>
+      <div class="exp-company">PT. Candi Agung Pratama</div>
+      <div class="exp-role">Administration Staff</div>
+      <div class="exp-desc">Manajemen dokumen, inventaris aset, dan pemodelan data transaksi perusahaan.</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-date">DES 2016 — MAR 2017</div>
+      <div class="exp-company">Axioo Service Center Surabaya</div>
+      <div class="exp-role">IT Specialist · Magang</div>
+      <div class="exp-desc">Perbaikan hardware dan software laptop serta smartphone berbagai merek.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS DEEP -->
+<section id="skills" style="padding-top:0">
+  <span class="sec-tag">// 03 — KEAHLIAN TEKNIS</span>
+  <h2 class="sec-title">Tech Stack</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-top:1rem" class="reveal">
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🌐</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">CISCO IOS</div>
+      <div style="font-size:.8rem;color:var(--dim)">Routing & Switching</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🐧</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">LINUX</div>
+      <div style="font-size:.8rem;color:var(--dim)">Ubuntu Server</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🔴</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">MIKROTIK</div>
+      <div style="font-size:.8rem;color:var(--dim)">RouterOS / CHR</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🐍</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">PYTHON</div>
+      <div style="font-size:.8rem;color:var(--dim)">Automation & Tools</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🔦</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">FIBER OPTIC</div>
+      <div style="font-size:.8rem;color:var(--dim)">Splicing & OTDR</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🛡️</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">CTF / SEC</div>
+      <div style="font-size:.8rem;color:var(--dim)">Penetration Testing</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">🗄️</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">MySQL/PG</div>
+      <div style="font-size:.8rem;color:var(--dim)">Database Admin</div>
+    </div>
+    <div class="proj-card" style="clip-path:none;text-align:center;padding:1.2rem .8rem">
+      <div style="font-size:1.6rem;margin-bottom:.5rem">☁️</div>
+      <div style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--cyan);margin-bottom:.2rem">SAP / CLOUD</div>
+      <div style="font-size:.8rem;color:var(--dim)">Analytics & Build</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="sec-tag">// 04 — PORTOFOLIO</span>
+  <h2 class="sec-title">Proyek Unggulan</h2>
+  <div class="proj-grid">
+    <div class="proj-card reveal">
+      <span class="proj-icon">🖥️</span>
+      <div class="proj-title">Network Admin Tools</div>
+      <div class="proj-desc">Python GUI untuk administrasi jaringan dengan ping sweep, port scan, dan remote utilities. Projek ini menampilkan kemampuan otomasi dan troubleshooting jaringan.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Tkinter</span>
+        <span class="proj-tag">Networking</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-demo-btn" data-project="network">DEMO KODE</button>
+        <a class="proj-link" href="https://github.com/Mrx112/Network_admin_tools" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">🔬</span>
+      <div class="proj-title">CyberScan Suite</div>
+      <div class="proj-desc">Toolkit keamanan jaringan untuk port scanning, vulnerability detection, dan analisis traffic. Cocok untuk penetration test dan audit keamanan.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">Security</span>
+        <span class="proj-tag">Networking</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-demo-btn" data-project="cyberscan">DEMO KODE</button>
+        <a class="proj-link" href="https://github.com/Mrx112/cyberscan" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">🧰</span>
+      <div class="proj-title">Scanning Tools Site</div>
+      <div class="proj-desc">Web interface untuk IP scanning, GeoIP lookup, port discovery, multi-endpoint, dan domain resolution di lingkungan jaringan.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">C++</span>
+        <span class="proj-tag">Security</span>
+        <span class="proj-tag">Network Tools</span>
+      </div>
+      <div class="proj-actions">
+        <a class="proj-link" href="https://github.com/Mrx112/Scanning-Tools-Site" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">📊</span>
+      <div class="proj-title">Mikrotik Dashboard</div>
+      <div class="proj-desc">Dashboard monitoring Mikrotik dengan tampilan real-time, bandwidth graphs, status interface, dan alert otomatis.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">JavaScript</span>
+        <span class="proj-tag">RouterOS API</span>
+        <span class="proj-tag">Monitoring</span>
+      </div>
+      <div class="proj-actions">
+        <a class="proj-link" href="https://mikrotik-dash-glow.vercel.app/" target="_blank">Live Demo</a>
+        <a class="proj-link" href="https://github.com/Mrx112/mikrotik-dash-glow" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">💳</span>
+      <div class="proj-title">Kasir Vista Dashboard</div>
+      <div class="proj-desc">Sistem kasir modern dengan dashboard penjualan, inventory, dan laporan lengkap untuk toko retail atau UMKM.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">React</span>
+        <span class="proj-tag">Dashboard</span>
+        <span class="proj-tag">Web App</span>
+      </div>
+      <div class="proj-actions">
+        <a class="proj-link" href="https://kasir-vista-dash-38.vercel.app/" target="_blank">Live Demo</a>
+        <a class="proj-link" href="https://github.com/Mrx112/kasir-vista-dash-38" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">♻️</span>
+      <div class="proj-title">Sistem Bank Sampah</div>
+      <div class="proj-desc">Aplikasi manajemen bank sampah untuk transaksi nasabah, inventaris, dan laporan keuangan berbasis Laravel.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">PHP</span>
+        <span class="proj-tag">Laravel</span>
+        <span class="proj-tag">MySQL</span>
+      </div>
+      <div class="proj-actions">
+        <a class="proj-link" href="https://project-pkm-banksampah.vercel.app" target="_blank">Live Demo</a>
+        <a class="proj-link" href="https://github.com/Mrx112/Project_PKM_Banksampah" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">🔌</span>
+      <div class="proj-title">API Integration Tool</div>
+      <div class="proj-desc">Tool Python untuk integrasi API RESTful, autentikasi, dan parsing response. Ideal untuk otomatisasi dan service orchestration.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">REST API</span>
+        <span class="proj-tag">Automation</span>
+      </div>
+      <div class="proj-actions">
+        <button class="proj-demo-btn" data-project="api">DEMO KODE</button>
+        <a class="proj-link" href="https://github.com/Mrx112" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <span class="proj-icon">🏢</span>
+      <div class="proj-title">PremiumPack Company Profile</div>
+      <div class="proj-desc">Modern company profile website untuk bisnis packaging dengan fitur tampilan produk, layanan, dan branding yang profesional.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Website</span>
+        <span class="proj-tag">Company Profile</span>
+        <span class="proj-tag">Packaging</span>
+      </div>
+      <div class="proj-actions">
+        <a class="proj-link" href="http://company-profile-demo.vercel.app/" target="_blank">Live Demo</a>
+        <a class="proj-link" href="https://github.com/Mrx112/Company-Profile-Demo" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="demo-modal-backdrop" id="projectDemoBackdrop"></div>
+<div class="demo-modal" id="projectDemoModal" aria-hidden="true">
+  <div class="demo-modal-card">
+    <div class="demo-modal-header">
+      <div>
+        <div class="demo-modal-tag">DEMO PROYEK</div>
+        <h3 class="demo-modal-title">Pilih salah satu proyek untuk melihat demo kode</h3>
+      </div>
+      <button class="demo-modal-close" id="closeDemoModal">×</button>
+    </div>
+    <div class="demo-modal-body">
+      <p class="demo-modal-description" id="projectDemoDescription">Kode demo akan muncul di sini. Tombol "Jalankan Kode" akan mengeksekusi snippet Python langsung di browser.</p>
+      <textarea id="codeInput" class="demo-code" spellcheck="false"></textarea>
+      <div class="demo-actions">
+        <button id="runButton" class="demo-btn">Jalankan Kode</button>
+        <button id="loadFromGithub" class="demo-btn outline">Load dari GitHub</button>
+        <button id="resetCode" class="demo-btn outline">Reset Kode</button>
+        <button id="copyCode" class="demo-btn outline">Salin Kode</button>
+      </div>
+      <div id="consoleOutput" class="demo-console">Memuat Pyodide…</div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <span class="sec-tag">// 05 — SERTIFIKASI & PRESTASI</span>
+  <h2 class="sec-title">Pencapaian</h2>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon">🏛️</div>
+      <div>
+        <div class="cert-name">Kementerian Komdigi RI</div>
+        <div class="cert-issuer">INTERMEDIATE & FUNDAMENTAL NETWORK ADMINISTRATOR</div>
+        <div class="cert-date">Maret 2026</div>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🏆</div>
+      <div>
+        <div class="cert-name">ParticipantCyber Security CTF</div>
+        <div class="cert-issuer">SATCYBER TNI · BPJS KETENAGAKERJAAN</div>
+        <div class="cert-date">2024 & 2022</div>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon">📊</div>
+      <div>
+        <div class="cert-name">SAP Analytics Cloud & Build Apps</div>
+        <div class="cert-issuer">ASEAN DATA SCIENCE EXPLORERS 2024</div>
+        <div class="cert-date">2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width:100%;padding:6rem 3rem">
+  <div class="contact-inner" style="max-width:700px;margin:0 auto;text-align:center">
+    <span class="sec-tag" style="display:block;text-align:center;margin-bottom:.5rem">// 06 — KONTAK</span>
+    <div class="contact-title reveal">Mari Berkolaborasi</div>
+    <p class="contact-sub reveal">Terbuka untuk proyek infrastruktur IT, konsultasi jaringan, dan peluang karir yang menantang.</p>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="https://wa.me/+6283854019603">📞 Adi Susilo</a>
+      <a class="contact-link" href="mailto:adisuarno29@gmail.com">✉️ adisuarno29@gmail.com</a>
+      <a class="contact-link" href="https://linkedin.com/in/adi-susilo-7184451a2" target="_blank">🔗 LinkedIn</a>
+      <a class="contact-link" href="https://github.com/Mrx112" target="_blank">💻 GitHub</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span style="font-family:'Space Mono',monospace;font-size:.7rem;color:var(--dim)">
+    © 2026 ADI SUSILO · NETWORK ENGINEER · SEMARANG, INDONESIA
+    <span style="color:var(--cyan);margin-left:1rem">[ UPTIME: <span id="uptime">99.98%</span> ]</span>
+  </span>
+</footer>
+
+<!-- Modular scripts -->
+<script src="./js/netCanvas.js"></script>
+<script src="./js/cursor.js"></script>
+<script src="./js/terminal.js"></script>
+<script src="./js/effects.js"></script>
+<script src="./js/gsap-init.js"></script>
+<script src="./js/project-demo.js"></script>
+<script src="./js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bgMusic = document.getElementById('bgMusic');
+    if (!bgMusic) return;
+
+    const playAudio = () => {
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const onUserInteract = () => {
+            bgMusic.play().catch(() => {});
+            window.removeEventListener('pointerdown', onUserInteract);
+            window.removeEventListener('keydown', onUserInteract);
+          };
+          window.addEventListener('pointerdown', onUserInteract, { once: true });
+          window.addEventListener('keydown', onUserInteract, { once: true });
+        });
+      }
+    };
+
+    playAudio();
+  });
+</script>
+
 </body>
 </html>
