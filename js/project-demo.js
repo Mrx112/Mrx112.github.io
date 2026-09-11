@@ -93,12 +93,30 @@ print('\nDemo API Integration selesai.')`
     }
   }
 
+  let pyodideLoading = null;
+  // Lazily inject the Pyodide runtime (~10 MB) only when the demo modal is first opened,
+  // so it never blocks the initial page render.
+  function ensurePyodideScript() {
+    if (typeof loadPyodide !== 'undefined') return Promise.resolve();
+    if (pyodideLoading) return pyodideLoading;
+    pyodideLoading = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js';
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('Gagal mengunduh runtime Pyodide'));
+      document.head.appendChild(s);
+    });
+    return pyodideLoading;
+  }
+
   async function initPyodide() {
+    if (pyodideReady || pyodide) return;
     try {
       const consoleOutput = getElement('consoleOutput');
       if (consoleOutput) {
         consoleOutput.innerHTML = '<div class="text-warning">Memuat Pyodide, mohon tunggu...</div>';
       }
+      await ensurePyodideScript();
       pyodide = await loadPyodide();
       pyodideReady = true;
       pyodide.runPython(`import sys\nfrom io import StringIO\nsys.stdout = StringIO()\nsys.stderr = StringIO()`);
@@ -124,6 +142,7 @@ print('\nDemo API Integration selesai.')`
     backdrop.style.opacity = '1';
     backdrop.style.visibility = 'visible';
     modal.setAttribute('aria-hidden', 'false');
+    initPyodide();
   }
 
   function closeModal() {
@@ -241,7 +260,6 @@ print('\nDemo API Integration selesai.')`
     if (copyButton) copyButton.addEventListener('click', copyCode);
 
     setRunState();
-    initPyodide();
   }
 
   return { init };

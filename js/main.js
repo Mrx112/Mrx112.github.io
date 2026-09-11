@@ -3,9 +3,9 @@
     // initialize modules
     if(window.NetCanvas) NetCanvas.init();
     if(window.SiteCursor) SiteCursor.init();
-    if(window.TerminalModule) TerminalModule.init();
     if(window.Effects) Effects.init();
     if(window.GSAPInit) GSAPInit.init();
+    if(window.UI) UI.init(); // preloader -> hero intro -> terminal
 
     // single RAF loop
     let last = performance.now();

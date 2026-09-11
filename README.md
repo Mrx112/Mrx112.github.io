@@ -25,26 +25,32 @@ Portofolio web modern dengan tema cyberpunk yang menampilkan proyek-proyek penge
 
 ## 🛠️ Teknologi Yang Digunakan
 
-- **Frontend**: HTML5, CSS3, Bootstrap 5, JavaScript
+- **Frontend**: HTML5, CSS3, JavaScript (vanilla)
 - **Python Runtime**: Pyodide (WebAssembly)
-- **Icons**: Font Awesome
-- **Animations**: CSS Animations & JavaScript
+- **Animations**: GSAP + ScrollTrigger, CSS Animations
 
 ## 📁 Struktur Proyek
 
 ```
 Mrx112.github.io/
-├── index.html          # Halaman utama
-├── assets/
-│   ├── css/
-│   │   └── style.css   # Styling cyberpunk
-│   ├── js/
-│   │   └── script.js   # JavaScript & Pyodide integration
-│   ├── audio/
-│   │   └── cyber-spnk-223448.mp3  # Musik latar
-│   └── img/
-│       └── profile/
-│           └── adi2.jpg # Foto profil
+├── index.html              # Halaman utama
+├── css/
+│   └── styles.css          # Styling cyber/network theme + animasi
+├── js/
+│   ├── vendor/             # GSAP + ScrollTrigger (lokal, tanpa CDN)
+│   ├── main.js             # Bootstrap modul & RAF loop
+│   ├── ui.js               # Preloader, intro hero, nav, menu mobile, musik, tilt 3D, filter proyek
+│   ├── gsap-init.js        # Animasi scroll (reveal, counter, skill bar, timeline)
+│   ├── terminal.js         # Typewriter role & terminal hero
+│   ├── netCanvas.js        # Latar jaringan (canvas)
+│   ├── effects.js          # Partikel & garis kursor
+│   ├── cursor.js           # Kursor kustom
+│   └── project-demo.js     # Modal demo Python (Pyodide dimuat lazy)
+├── audio/
+│   └── cyber-spnk-223448.mp3
+└── img/
+    ├── me.png              # Foto asli
+    └── me-portrait.jpg     # Crop potret untuk kartu profil
 ```
 
 ## 🚀 Cara Menjalankan
@@ -102,7 +108,7 @@ case 'nama-proyek':
 3. **Tambahkan di fungsi resetCode** dengan kode yang sama
 
 ### Mengubah Styling
-Edit file `assets/css/style.css` untuk mengubah tampilan cyberpunk.
+Edit file `css/styles.css` untuk mengubah tampilan.
 
 ## 📞 Kontak
 

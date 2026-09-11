@@ -10,7 +10,7 @@
 
   function init(){
     // interactive hover changes
-    document.querySelectorAll('a,button,.proj-card,.cert-card,.stat-card').forEach(el=>{
+    document.querySelectorAll('a,button,.proj-card,.cert-card,.stat-card,.tech-card,.pcard').forEach(el=>{
       el.addEventListener('mouseenter',()=>{ cur.style.width='40px'; cur.style.height='40px'; cur.style.borderColor='var(--green)'; hoverScale=1.1; });
       el.addEventListener('mouseleave',()=>{ cur.style.width='20px'; cur.style.height='20px'; cur.style.borderColor='var(--cyan)'; hoverScale=1; });
     });
