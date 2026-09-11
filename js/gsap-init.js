@@ -53,7 +53,7 @@
     gsap.to('.hero-left',{y:-60,opacity:.2,ease:'none',scrollTrigger:{trigger:'#hero',start:'40% top',end:'bottom top',scrub:true}});
 
     // Scroll indicators
-    const sections=['hero','about','experience','projects','certifications','contact'];
+    const sections=['hero','about','experience','projects','labs','certifications','contact'];
     const dots = document.querySelectorAll('.si-dot');
     sections.forEach((id,i)=>{
       const sec = document.getElementById(id); if(!sec) return;
