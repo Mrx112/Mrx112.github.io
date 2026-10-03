@@ -38,6 +38,15 @@
       }});
     });
 
+    // Fallback: if counters are still at 0 after page load, set final values
+    setTimeout(() => {
+      document.querySelectorAll('[data-count]').forEach(el => {
+        if(el.textContent === '0' || el.textContent === '') {
+          el.textContent = (+el.dataset.count).toLocaleString('id-ID');
+        }
+      });
+    }, 6000);
+
     // Timeline items + growing line
     document.querySelectorAll('.exp-item').forEach((el,i)=>{
       gsap.fromTo(el,{x:-40,opacity:0},{x:0,opacity:1,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});

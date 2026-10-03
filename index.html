@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adi Susilo | Network Engineer & Full Stack Developer</title>
-<meta name="description" content="Portofolio Adi Susilo — Network Engineer & Full Stack Developer dari Semarang. Infrastruktur jaringan, fiber optic, Linux, otomasi Python, dan aplikasi web.">
+<title>Adi Susilo | Full Stack Developer & Systems Automator</title>
+<meta name="description" content="Full Stack Developer & Systems Automator — Adi Susilo. Spesialis aplikasi web modern (React, Next.js, Laravel, FastAPI) dengan superpower infrastruktur jaringan dan otomasi sistem untuk solusi end-to-end yang berperforma tinggi.">
 <meta name="theme-color" content="#02060f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2302060f%27/%3E%3Cpath d=%27M16 4l12 12-12 12L4 16z%27 fill=%27%2300f5ff%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/styles.css">
+<link rel="stylesheet" href="./css/intro-game.css">
+<link rel="stylesheet" href="./css/tv-glitch.css">
+<link rel="stylesheet" href="./css/game.css">
 <noscript><style>#preloader{display:none}body.loading{overflow:auto}</style></noscript>
 </head>
 <body class="loading">
@@ -26,7 +29,29 @@
   <div class="pl-grid"></div>
 </div>
 
-<audio id="bgMusic" src="./audio/cyber-spnk-223448.mp3" autoplay loop playsinline></audio>
+<!-- GAME INTRO OVERLAY -->
+<div class="intro-overlay" id="introOverlay" aria-hidden="true">
+  <div class="intro-grid" aria-hidden="true"></div>
+  <div class="intro-center">
+    <h1 class="intro-name" id="introName">
+      <span class="word">ADI</span>
+      <span class="word accent">SUSILO</span>
+    </h1>
+    <div class="intro-avatar" id="introAvatar">
+      <img src="./img/me-portrait.jpg" alt="Adi Susilo">
+      <div class="avatar-overlay">
+        <span class="avatar-overlay-text">FULL STACK<br>DEVELOPER</span>
+        <span class="avatar-overlay-sub">· NETWORK ENGINEER</span>
+      </div>
+    </div>
+    <button class="intro-login-btn" id="introLoginBtn" aria-label="Login ke sistem">
+      <span class="btn-text">LOGIN</span>
+      <span class="btn-icon"></span>
+    </button>
+  </div>
+</div>
+
+<audio id="bgMusic" src="./audio/cyber-spnk-223448.mp3" loop playsinline preload="none"></audio>
 
 <canvas id="netCanvas"></canvas>
 <div class="scanline"></div>
@@ -89,6 +114,7 @@
     <div class="hero-rings"><i></i><i></i><i></i></div>
     <div class="hero-scan-bars"><span></span><span></span><span></span><span></span><span></span></div>
   </div>
+  <div class="hero-3d" id="hero3D" aria-hidden="true"></div>
 
   <div class="hero-grid">
     <div class="hero-left">
@@ -103,10 +129,11 @@
         <span class="hero-role-prefix">&gt;</span> <span id="typedText"></span><span class="typed-cursor">_</span>
       </div>
       <p class="hero-desc" id="heroDesc">
-        Network Engineer & Full Stack Developer. Membangun infrastruktur jaringan yang andal,
-        tools otomasi Python, dan aplikasi web modern untuk tim operasi TI.
+        Full Stack Developer yang membangun aplikasi web modern dan sistem otomatisasi berperforma tinggi.
+        Network Engineering adalah <b>superpower</b> teknis saya untuk menyelesaikan masalah infrastruktur yang kompleks — dari administrasi jaringan kampus 2.04 Gbps hingga dashboard monitoring real-time.
       </p>
       <div class="hero-cta" id="heroCta">
+        <a href="./cv/Adi_Susilo_CV.pdf" class="btn-cv magnetic" download>⬇ DOWNLOAD CV</a>
         <a href="#projects" class="btn-primary magnetic">LIHAT PROYEK</a>
         <a href="#contact" class="btn-outline magnetic">HUBUNGI SAYA →</a>
       </div>
@@ -132,21 +159,27 @@
             <div class="avatar-orbit o2"><i></i></div>
             <div class="avatar-img">
               <img src="./img/me-portrait.jpg" alt="Adi Susilo">
+              <div class="avatar-overlay">
+                <span class="avatar-overlay-text">FULL STACK<br>DEVELOPER</span>
+                <span class="avatar-overlay-sub">· NETWORK ENGINEER</span>
+              </div>
             </div>
             <span class="avatar-badge" title="Available"></span>
           </div>
           <div class="pcard-id">
             <div class="pcard-tag">// PROFILE</div>
             <div class="pcard-name">Adi Susilo</div>
-            <div class="pcard-head">NETWORK ENGINEER · FULL STACK DEV</div>
+            <div class="pcard-head">FULL STACK DEVELOPER · NETWORK ENGINEER</div>
             <div class="pcard-loc">📍 Semarang, Jawa Tengah, Indonesia</div>
           </div>
         </div>
         <p class="pcard-bio">
-          Network Engineer di <b>PT Bach Multi Global</b> (IFORTE @ UNDIP), mengelola jaringan kampus
-          <b>2.04 Gbps</b> untuk <b>35.000+</b> pengguna. Berpengalaman 7+ tahun di infrastruktur jaringan,
-          fiber optic, administrasi Linux, dan otomasi Python. Tersertifikasi Network Administrator
-          Kementerian Komdigi RI &amp; peserta CTF SATCYBER TNI.
+          <b>Full Stack Developer</b> dengan keahlian infrastruktur jaringan sebagai nilai tambah unik.
+          Berpengalaman membangun aplikasi web modern (React, Next.js, Laravel, FastAPI) dan mengelola
+          otomasi sistem berbasis Python. Di <b>PT Bach Multi Global</b> (IFORTE @ UNDIP), menjembatani
+          kebutuhan operasional TI dengan solusi end-to-end: dari administrasi jaringan kampus 2.04 Gbps
+          untuk 35.000+ pengguna, hingga pengembangan dashboard dan platform digital yang andal.
+          Tersertifikasi Network Administrator Kementerian Komdigi RI &amp; peserta CTF SATCYBER TNI.
         </p>
         <div class="pcard-tags">
           <span class="ptag">Cisco</span>
@@ -176,7 +209,7 @@
       </div>
 
       <!-- TERMINAL -->
-      <div class="terminal-window" id="termWindow">
+      <div class="terminal-window" id="termWindow" role="button" tabindex="0" aria-label="Buka mini game terminal breach">
         <div class="terminal-bar">
           <div class="t-dot" style="background:#ff5f56"></div>
           <div class="t-dot" style="background:#ffbd2e"></div>
@@ -213,8 +246,8 @@
   </div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p class="lead">Saya adalah <b>Network Engineer</b> dan <b>Full Stack Developer</b> yang berfokus pada infrastruktur jaringan enterprise, otomasi berbasis Python, dan pengembangan aplikasi web modern.</p>
-      <p>Pengalaman saya mencakup pengelolaan jaringan kampus berkapasitas 2.04 Gbps untuk 35.000+ pengguna, audit &amp; restorasi fiber optic, administrasi Linux, serta pembuatan solusi digital yang mendukung operasional dan keamanan. Saya percaya perpaduan software dan jaringan adalah kunci nilai tambah bagi tim TI dan pengguna akhir.</p>
+      <p class="lead">Saya adalah <b>Full Stack Developer</b> dengan keahlian infrastruktur jaringan dan otomasi sistem sebagai <b>superpower</b> teknis. Fokus pada pengembangan aplikasi web modern yang berperforma tinggi, didukung pemahaman mendalam tentang jaringan enterprise, otomasi Python, dan keamanan siber.</p>
+      <p>Pengalaman saya mencakup pengelolaan jaringan kampus berkapasitas 2.04 Gbps untuk 35.000+ pengguna, audit &amp; restorasi fiber optic, administrasi Linux, serta pembuatan solusi digital yang mendukung operasional dan keamanan. Keahlian jaringan dan otomasi menjadi keunggulan kompetitif untuk membangun aplikasi yang tidak hanya bagus di tampilan, tapi juga handal di infrastruktur.</p>
       <div class="skill-list">
         <div class="skill-row">
           <div class="skill-meta"><span class="skill-name">NETWORKING &amp; ROUTING</span><span class="skill-pct">95%</span></div>
@@ -488,8 +521,9 @@
       <span class="proj-idx">01</span>
       <span class="proj-icon">🖥️</span>
       <div class="proj-title">Network Admin Tools</div>
-      <div class="proj-desc">Python GUI untuk administrasi jaringan dengan ping sweep, port scan, dan remote utilities. Menampilkan kemampuan otomasi dan troubleshooting jaringan.</div>
-      <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Tkinter</span><span class="proj-tag">Networking</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Tim network engineer membutuhkan tools terpadu untuk administrasi harian — dari discovery host, scanning port, hingga remote troubleshooting — tanpa berganti-ganti aplikasi.</div>
+      <div class="proj-desc">Python GUI yang mengintegrasikan ping sweep, port scan, remote utilities, dan otomasi jaringan dalam satu antarmuka. Menyelesaikan kebutuhan troubleshooting dan dokumentasi konfigurasi perangkat.</div>
+      <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Tkinter</span><span class="proj-tag">Netmiko / NAPALM</span><span class="proj-tag">SSH</span></div>
       <div class="proj-actions">
         <button class="proj-demo-btn" data-project="network">▶ DEMO KODE</button>
         <a class="proj-link" href="https://github.com/Mrx112/Network_admin_tools" target="_blank" rel="noopener">GitHub ↗</a>
@@ -499,8 +533,9 @@
       <span class="proj-idx">02</span>
       <span class="proj-icon">🔬</span>
       <div class="proj-title">CyberScan Suite</div>
-      <div class="proj-desc">Toolkit keamanan jaringan untuk port scanning, vulnerability detection, dan analisis traffic. Cocok untuk penetration test dan audit keamanan.</div>
-      <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Security</span><span class="proj-tag">Networking</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Auditor dan tim security perlu toolkit Python terstruktur untuk scanning otomatis, deteksi kerentanan, dan dokumentasi hasil uji penetrasi yang konsisten.</div>
+      <div class="proj-desc">Toolkit keamanan jaringan modular untuk port scanning, vulnerability detection, dan analisis traffic dengan output yang terdokumentasi rapi. Cocok untuk penetration test dan audit keamanan berulang.</div>
+      <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Scapy</span><span class="proj-tag">Nmap</span><span class="proj-tag">Security Testing</span></div>
       <div class="proj-actions">
         <button class="proj-demo-btn" data-project="cyberscan">▶ DEMO KODE</button>
         <a class="proj-link" href="https://github.com/Mrx112/cyberscan" target="_blank" rel="noopener">GitHub ↗</a>
@@ -520,8 +555,9 @@
       <span class="proj-idx">04</span>
       <span class="proj-icon">📊</span>
       <div class="proj-title">Mikrotik Dashboard</div>
-      <div class="proj-desc">Dashboard monitoring Mikrotik dengan tampilan real-time, bandwidth graphs, status interface, dan alert otomatis.</div>
-      <div class="proj-tags"><span class="proj-tag">JavaScript</span><span class="proj-tag">RouterOS API</span><span class="proj-tag">Monitoring</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Administrator jaringan kesulitan memantau bandwidth dan status interface perangkat Mikrotik secara real-time tanpa login ke RouterOS berulang kali.</div>
+      <div class="proj-desc">Dashboard monitoring Mikrotik dengan visualisasi bandwidth real-time, status interface, dan alert otomatis. Diakses lewat browser tanpa instalasi tambahan.</div>
+      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">RouterOS API</span><span class="proj-tag">Chart.js</span><span class="proj-tag">Realtime</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="https://mikrotik-dash-glow.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
       </div>
@@ -530,8 +566,9 @@
       <span class="proj-idx">05</span>
       <span class="proj-icon">💳</span>
       <div class="proj-title">Kasir Vista Dashboard</div>
-      <div class="proj-desc">Sistem kasir modern dengan dashboard penjualan, inventory, dan laporan lengkap untuk toko retail atau UMKM.</div>
-      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Dashboard</span><span class="proj-tag">Web App</span></div>
+      <div class="proj-context"><b>Kontekks:</b> UMKM dan toko retail memerlukan sistem pencatatan penjualan, inventory, dan laporan keuangan yang terpusat dan mudah diakses oleh staf.</div>
+      <div class="proj-desc">Sistem kasir modern dengan dashboard penjualan, manajemen inventory, dan laporan lengkap. Mendukung multi-user dan export laporan untuk akuntansi.</div>
+      <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Node.js</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">Chart.js</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="https://kasir-vista-dash-38.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
       </div>
@@ -540,8 +577,9 @@
       <span class="proj-idx">06</span>
       <span class="proj-icon">♻️</span>
       <div class="proj-title">Sistem Bank Sampah</div>
-      <div class="proj-desc">Aplikasi manajemen bank sampah untuk transaksi nasabah, inventaris, dan laporan keuangan berbasis Laravel.</div>
-      <div class="proj-tags"><span class="proj-tag">PHP</span><span class="proj-tag">Laravel</span><span class="proj-tag">MySQL</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Gerakan bank sampah membutuhkan sistem pencatatan transaksi nasabah, inventaris, dan laporan keuangan yang akurat untuk reporting kepada stakeholder.</div>
+      <div class="proj-desc">Aplikasi web manajemen bank sampah berbasis Laravel dengan modul transaksi nasabah, inventaris, dan laporan keuangan yang terintegrasi.</div>
+      <div class="proj-tags"><span class="proj-tag">PHP / Laravel</span><span class="proj-tag">MySQL</span><span class="proj-tag">Bootstrap</span><span class="proj-tag">MVC</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="https://project-pkm-banksampah.vercel.app" target="_blank" rel="noopener">Live Demo ↗</a>
       </div>
@@ -561,8 +599,9 @@
       <span class="proj-idx">08</span>
       <span class="proj-icon">🏢</span>
       <div class="proj-title">PremiumPack Company Profile</div>
-      <div class="proj-desc">Company profile modern untuk bisnis packaging dengan tampilan produk, layanan, dan branding yang profesional.</div>
-      <div class="proj-tags"><span class="proj-tag">Website</span><span class="proj-tag">Company Profile</span><span class="proj-tag">Packaging</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Perusahaan packaging membutuhkan presence digital profesional untuk menampilkan katalog produk, layanan, dan brand story ke calon klien.</div>
+      <div class="proj-desc">Company profile modern dengan desain responsif, galeri produk, form kontak, dan animasi scroll yang meningkatkan engagement pengunjung.</div>
+      <div class="proj-tags"><span class="proj-tag">HTML / CSS / JS</span><span class="proj-tag">GSAP</span><span class="proj-tag">Responsive</span><span class="proj-tag">SEO</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="http://company-profile-demo.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
         <a class="proj-link" href="https://github.com/Mrx112/Company-Profile-Demo" target="_blank" rel="noopener">GitHub ↗</a>
@@ -602,8 +641,9 @@
       <span class="proj-idx">12</span>
       <span class="proj-icon">🩺</span>
       <div class="proj-title">THERA-COMM AI</div>
-      <div class="proj-desc">Simulator komunikasi terapeutik keperawatan berbasis AI. Mahasiswa berdialog dengan avatar pasien 3D, sementara ekspresi wajah, kontak mata, postur, gestur, dan suara dianalisis real-time di browser.</div>
-      <div class="proj-tags"><span class="proj-tag">Next.js</span><span class="proj-tag">Three.js</span><span class="proj-tag">AI / Computer Vision</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Pendidikan keperawatan memerlukan simulator komunikasi terapeutik yang aman untuk dilatih tanpa mempengaruhi pasien nyata, dengan umpan balik objektif.</div>
+      <div class="proj-desc">Simulator komunikasi terapeutik berbasis AI untuk mahasiswa keperawatan. Avatar pasien 3D merespons dialog, sementara ekspresi wajah, kontak mata, postur, gestur, dan suara dianalisis real-time di browser.</div>
+      <div class="proj-tags"><span class="proj-tag">Next.js</span><span class="proj-tag">Three.js</span><span class="proj-tag">MediaPipe</span><span class="proj-tag">Gemini API</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="https://demo-thera-comm-ai.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
       </div>
@@ -622,8 +662,9 @@
       <span class="proj-idx">14</span>
       <span class="proj-icon">🌐</span>
       <div class="proj-title">Network Automation Platform</div>
-      <div class="proj-desc">Platform terpusat untuk manajemen perangkat jaringan dan otomasi operasional: inventaris device via SSH/Telnet, network discovery, visualisasi topologi, generator konfigurasi Jinja2, backup otomatis, compliance check, dan monitoring bandwidth real-time. Mendukung Cisco, Arista, Juniper, Huawei, dan Linux.</div>
-      <div class="proj-tags"><span class="proj-tag">React + TypeScript</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Netmiko / NAPALM</span></div>
+      <div class="proj-context"><b>Kontekks:</b> Tim network engineer kesulitan mengelola inventaris perangkat, konfigurasi, backup, dan compliance secara manual di lingkungan multi-vendor (Cisco, Arista, Juniper, Huawei).</div>
+      <div class="proj-desc">Platform terpusat untuk manajemen perangkat jaringan dan otomasi operasional: inventaris device via SSH/Telnet, network discovery, visualisasi topologi interaktif, generator konfigurasi Jinja2, backup otomatis, compliance check, dan monitoring bandwidth real-time.</div>
+      <div class="proj-tags"><span class="proj-tag">React + TypeScript</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Netmiko / NAPALM</span><span class="proj-tag">PostgreSQL</span></div>
       <div class="proj-actions">
         <a class="proj-link live" href="https://the-network-automation-platform.vercel.app/" target="_blank" rel="noopener">Live Demo ↗</a>
       </div>
@@ -673,6 +714,24 @@
       </div>
       <div id="consoleOutput" class="demo-console">Memuat Pyodide…</div>
     </div>
+  </div>
+</div>
+
+<!-- MINI GAME: TERMINAL BREACH -->
+<div class="game-backdrop" id="gameBackdrop"></div>
+<div class="game-modal" id="gameModal" aria-hidden="true">
+  <div class="game-header">
+    <div>
+      <div class="game-title">// MINI CTF — TERMINAL BREACH</div>
+      <div class="game-score" id="gameScore">PROGRESS: 0 / 3</div>
+    </div>
+    <button class="game-close" id="gameClose" aria-label="Tutup game">×</button>
+  </div>
+  <div class="game-progress"><div class="game-progress-bar" id="gameProgressBar"></div></div>
+  <div class="game-body" id="gameBody"></div>
+  <div class="game-input-row">
+    <span class="game-input-prompt">guest@portfolio:~$</span>
+    <input type="text" class="game-input" id="gameInput" placeholder="Ketik 'help' untuk mulai..." autocomplete="off" spellcheck="false">
   </div>
 </div>
 
@@ -788,8 +847,12 @@
   <div class="contact-inner">
     <span class="sec-tag reveal">// 07 — KONTAK</span>
     <h2 class="contact-title reveal">Mari <span>Berkolaborasi</span></h2>
-    <p class="contact-sub reveal">Terbuka untuk proyek infrastruktur IT, konsultasi jaringan, pengembangan aplikasi, dan peluang karir yang menantang.</p>
+    <p class="contact-sub reveal">Full Stack Developer siap membantu proyek web modern, otomasi sistem, dan konsultasi jaringan. Download CV untuk detail lengkap pengalaman dan kualifikasi.</p>
     <div class="contact-links reveal">
+      <a class="contact-link contact-cv magnetic" href="./cv/Adi_Susilo_CV.pdf" download>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
       <a class="contact-link magnetic" href="https://wa.me/+6283854019603" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 12 .2C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6a11.8 11.8 0 0 0 5.7 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4z"/></svg>
         WhatsApp
@@ -814,7 +877,7 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-left">© 2026 ADI SUSILO · NETWORK ENGINEER · SEMARANG, INDONESIA</div>
+    <div class="footer-left">© 2026 ADI SUSILO · FULL STACK DEVELOPER · SEMARANG, INDONESIA</div>
     <div class="footer-right">
       <span class="footer-uptime">[ UPTIME: <span id="uptime">99.98%</span> ]</span>
       <span class="footer-built">BUILT WITH HTML · CSS · JS · GSAP</span>
@@ -827,9 +890,13 @@
 </button>
 
 <!-- Vendor -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script src="./js/vendor/gsap.min.js"></script>
 <script src="./js/vendor/ScrollTrigger.min.js"></script>
+<script src="./js/mini-game.js"></script>
 <!-- Modular scripts -->
+<script src="./js/hero-3d.js"></script>
 <script src="./js/netCanvas.js"></script>
 <script src="./js/cursor.js"></script>
 <script src="./js/terminal.js"></script>

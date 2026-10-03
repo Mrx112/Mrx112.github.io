@@ -5,6 +5,7 @@
     if(window.SiteCursor) SiteCursor.init();
     if(window.Effects) Effects.init();
     if(window.GSAPInit) GSAPInit.init();
+    if(window.MiniGame) MiniGame.init();
     if(window.UI) UI.init(); // preloader -> hero intro -> terminal
 
     // single RAF loop

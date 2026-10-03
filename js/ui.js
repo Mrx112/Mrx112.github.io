@@ -61,6 +61,102 @@
     });
   }
 
+  function splitIntroName(){
+    const introName = document.getElementById('introName');
+    if(!introName) return;
+    introName.querySelectorAll('.word').forEach(word => {
+      const text = word.textContent.trim();
+      word.textContent = '';
+      [...text].forEach(ch => {
+        const s = document.createElement('span');
+        s.className = 'ch';
+        s.textContent = ch;
+        word.appendChild(s);
+      });
+    });
+  }
+
+  function showIntroOverlay(){
+    const overlay = document.getElementById('introOverlay');
+    if(!overlay) return;
+
+    // Lock body scroll
+    document.body.style.overflow = 'hidden';
+
+    // Hide hero content initially
+    const heroLeft = document.querySelector('.hero-left');
+    const heroRight = document.querySelector('.hero-right');
+    const scrollHint = document.querySelector('.scroll-hint');
+    if(heroLeft) heroLeft.style.opacity = '0';
+    if(heroRight) heroRight.style.opacity = '0';
+    if(scrollHint) scrollHint.style.opacity = '0';
+
+    // Show overlay
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+
+    // Split name into characters
+    splitIntroName();
+
+    // Animate intro elements after a short delay
+    setTimeout(() => {
+      const name = document.getElementById('introName');
+      const avatar = document.getElementById('introAvatar');
+      const btn = document.getElementById('introLoginBtn');
+      if(name) name.classList.add('show');
+      if(avatar) avatar.classList.add('show');
+      if(btn) btn.classList.add('show');
+    }, 200);
+  }
+
+  function hideIntroOverlay(callback){
+    const overlay = document.getElementById('introOverlay');
+    if(!overlay){
+      if(callback) callback();
+      return;
+    }
+    if(!overlay.classList.contains('open') || overlay.dataset.closing === 'true'){
+      if(callback) callback();
+      return;
+    }
+    overlay.dataset.closing = 'true';
+
+    // Unlock body scroll
+    document.body.style.overflow = '';
+
+    // Trigger opening animation
+    overlay.classList.add('opening');
+
+    // Particle burst effect
+    const btn = document.getElementById('introEnvelopeBtn');
+    if(btn && !reduce){
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      for(let i=0;i<12;i++){
+        const p = document.createElement('div');
+        p.className = 'intro-particle';
+        const angle = (Math.PI*2/12)*i;
+        const dist = 60 + Math.random()*40;
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        p.style.setProperty('--tx', Math.cos(angle)*dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle)*dist + 'px');
+        document.body.appendChild(p);
+        requestAnimationFrame(() => p.classList.add('burst'));
+        setTimeout(() => p.remove(), 900);
+      }
+    }
+
+    // After animation completes, hide overlay and run hero intro
+    setTimeout(() => {
+      overlay.classList.remove('open','opening');
+      overlay.removeAttribute('data-closing');
+      overlay.setAttribute('aria-hidden','true');
+      if(callback) callback();
+    }, 1100);
+  }
+
   function heroIntro(){
     const glitch = document.querySelector('.hero-name .glitch');
     const startTerminal = () => { if(window.TerminalModule) TerminalModule.start(); };
@@ -150,17 +246,23 @@
     audio.addEventListener('play', sync);
     audio.addEventListener('pause', sync);
 
-    const tryPlay = () => audio.play().catch(() => {
-      const onInteract = () => { audio.play().catch(() => {}); };
-      window.addEventListener('pointerdown', onInteract, { once:true });
-      window.addEventListener('keydown', onInteract, { once:true });
-    });
-    tryPlay();
+    if(btn) btn.setAttribute('title', 'Hidupkan musik');
+    audio.pause();
+    if(btn) btn.classList.remove('playing');
 
-    if(btn) btn.addEventListener('click', e => {
+    const startMusic = () => {
+      audio.play().then(() => { if(btn) btn.setAttribute('title', 'Matikan musik'); }).catch(() => {});
+    };
+    btn.addEventListener('click', e => {
       e.stopPropagation();
-      if(audio.paused) audio.play().catch(() => {}); else audio.pause();
+      if(audio.paused) startMusic(); else { audio.pause(); if(btn) btn.setAttribute('title', 'Hidupkan musik'); }
     });
+
+    if(!reduce){
+      const once = () => { startMusic(); window.removeEventListener('pointerdown', once); window.removeEventListener('keydown', once); };
+      window.addEventListener('pointerdown', once, { once:true });
+      window.addEventListener('keydown', once, { once:true });
+    }
   }
 
   /* ---------- 3D TILT ---------- */
@@ -234,6 +336,107 @@
     setInterval(() => { el.textContent = (99.9 + Math.random() * .09).toFixed(2) + '%'; }, 4000);
   }
 
+  /* ---------- GAME INTRO ---------- */
+  function initGameIntro(){
+    const btn = document.getElementById('introLoginBtn');
+    if(!btn) return;
+    btn.addEventListener('click', () => {
+      playLoginSound();
+      createPortalEffect();
+      setTimeout(() => {
+        hideIntroOverlay(() => {
+          if(window._heroIntro){
+            window._heroIntro();
+            window._heroIntro = null;
+          }
+        });
+      }, 600);
+    });
+
+    btn.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  }
+
+  function playLoginSound(){
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.3);
+
+      setTimeout(() => {
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        osc2.type = 'square';
+        osc2.frequency.setValueAtTime(200, audioCtx.currentTime);
+        osc2.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+        gain2.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        osc2.start(audioCtx.currentTime);
+        osc2.stop(audioCtx.currentTime + 0.15);
+      }, 150);
+    } catch(e) {
+      console.log('Audio not supported');
+    }
+  }
+
+  function createPortalEffect(){
+    const overlay = document.getElementById('introOverlay');
+    if(!overlay) return;
+
+    // Flash effect
+    const flash = document.createElement('div');
+    flash.className = 'intro-portal-flash active';
+    overlay.appendChild(flash);
+    setTimeout(() => flash.remove(), 900);
+
+    // Create portal rings
+    const portal = document.createElement('div');
+    portal.className = 'intro-portal active';
+    portal.innerHTML = '<div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>';
+    overlay.querySelector('.intro-center').appendChild(portal);
+
+    // Create electric sparks
+    const btn = document.getElementById('introLoginBtn');
+    if(btn && !reduce){
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      for(let i=0;i<20;i++){
+        const spark = document.createElement('div');
+        spark.className = 'intro-spark';
+        const angle = (Math.PI*2/20)*i;
+        const dist = 80 + Math.random()*60;
+        spark.style.left = cx + 'px';
+        spark.style.top = cy + 'px';
+        spark.style.setProperty('--sx', Math.cos(angle)*dist + 'px');
+        spark.style.setProperty('--sy', Math.sin(angle)*dist + 'px');
+        document.body.appendChild(spark);
+        requestAnimationFrame(() => spark.classList.add('burst'));
+        setTimeout(() => spark.remove(), 800);
+      }
+    }
+
+    // Remove portal after animation
+    setTimeout(() => {
+      if(portal.parentNode) portal.parentNode.removeChild(portal);
+    }, 2500);
+  }
+
   function init(){
     splitName();
     scrollState();
@@ -244,7 +447,12 @@
     magnetic();
     projectFilter();
     uptime();
-    preloader(heroIntro);
+    initGameIntro();
+    preloader(() => {
+      showIntroOverlay();
+      // Hero intro will be triggered after envelope click
+      window._heroIntro = heroIntro;
+    });
   }
 
   window.UI = { init };

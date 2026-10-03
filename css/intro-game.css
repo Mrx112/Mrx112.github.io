@@ -1,0 +1,180 @@
+/* =====================================================================
+   GAME INTRO — LOGIN / PORTAL SEQUENCE
+   ===================================================================== */
+
+/* Full screen intro overlay */
+.intro-overlay{
+  position:fixed;inset:0;z-index:9000;
+  background:var(--dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s;
+  overflow:hidden;
+}
+.intro-overlay.open{opacity:1;visibility:visible}
+
+/* Background grid */
+.intro-grid{
+  position:absolute;inset:0;opacity:.1;pointer-events:none;
+  background-image:linear-gradient(rgba(0,245,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.4) 1px,transparent 1px);
+  background-size:60px 60px;mask-image:radial-gradient(circle at center,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(circle at center,#000 20%,transparent 70%);
+  animation:moveGrid 14s linear infinite;
+}
+@keyframes moveGrid{from{background-position:0 0}to{background-position:60px 60px}}
+
+/* Center content */
+.intro-center{
+  position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2rem;
+  text-align:center;padding:2rem;
+}
+
+/* Large name */
+.intro-name{
+  font-size:clamp(3rem,10vw,7rem);font-weight:700;line-height:.9;letter-spacing:-.02em;color:#fff;
+  text-align:center;
+}
+.intro-name .word{display:block;overflow:hidden}
+.intro-name .ch{display:inline-block;opacity:0;transform:translateY(110%);transition:transform .7s var(--ease),opacity .7s var(--ease)}
+.intro-name.show .ch{opacity:1;transform:none}
+.intro-name .accent{
+  background:linear-gradient(120deg,var(--cyan) 0%,var(--blue) 45%,var(--magenta) 100%);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradShift 4s ease-in-out infinite alternate;
+}
+@keyframes gradShift{from{background-position:0 0}to{background-position:100% 0}}
+
+/* Avatar */
+.intro-avatar{
+  position:relative;width:160px;height:160px;border-radius:50%;overflow:hidden;
+  border:3px solid rgba(0,245,255,.6);box-shadow:0 0 60px rgba(0,245,255,.35),inset 0 0 40px rgba(0,0,0,.6);
+  opacity:0;transform:scale(.8);transition:opacity .8s var(--ease),transform .8s var(--ease);
+}
+.intro-avatar.show{opacity:1;transform:none}
+.intro-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 15%;filter:grayscale(.3) contrast(1.1)}
+.intro-avatar .avatar-overlay{opacity:1;background:rgba(2,6,15,.15)}
+.intro-avatar::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,245,255,.5),rgba(124,58,237,.4) 60%,rgba(255,47,214,.3));
+  mix-blend-mode:color;opacity:.7;
+}
+.intro-avatar::before{
+  content:'';position:absolute;left:0;right:0;top:-40%;height:40%;z-index:2;
+  background:linear-gradient(180deg,transparent,rgba(0,245,255,.5),transparent);
+  animation:avatarScan 3s linear infinite;
+}
+@keyframes avatarScan{to{top:110%}}
+
+/* Login button */
+.intro-login-btn{
+  position:relative;width:160px;height:56px;background:linear-gradient(160deg,#0d2137,#071428);
+  border:2px solid rgba(0,245,255,.5);border-radius:999px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  box-shadow:0 0 30px rgba(0,245,255,.25),inset 0 1px 0 rgba(255,255,255,.05);
+  transition:all .4s var(--ease);opacity:0;transform:translateY(20px);
+  overflow:visible;
+}
+.intro-login-btn.show{opacity:1;transform:none}
+.intro-login-btn:hover{border-color:var(--cyan);box-shadow:0 0 50px rgba(0,245,255,.5);transform:translateY(-3px)!important}
+
+.intro-login-btn .btn-text{
+  position:relative;z-index:2;font-family:var(--mono);font-size:.78rem;font-weight:700;
+  letter-spacing:.18em;color:var(--cyan);text-shadow:0 0 12px rgba(0,245,255,.6);
+}
+.intro-login-btn .btn-icon{
+  position:relative;z-index:2;width:18px;height:18px;border:2px solid var(--cyan);border-radius:50%;
+  display:grid;place-items:center;transition:all .4s var(--ease);
+}
+.intro-login-btn .btn-icon::after{
+  content:'';width:6px;height:6px;background:var(--cyan);border-radius:50%;
+  box-shadow:0 0 10px var(--cyan);transition:all .3s;
+}
+.intro-login-btn:hover .btn-icon{box-shadow:0 0 18px rgba(0,245,255,.5);border-color:#fff}
+.intro-login-btn:hover .btn-icon::after{background:#fff;box-shadow:0 0 16px #fff}
+
+/* Portal rings */
+.intro-portal{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:280px;height:280px;pointer-events:none;z-index:1;
+  opacity:0;transition:opacity .5s;
+}
+.intro-portal.active{opacity:1}
+
+.intro-portal .ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(0,245,255,.4);opacity:0;
+  box-shadow:0 0 20px rgba(0,245,255,.3),inset 0 0 20px rgba(0,245,255,.15);
+}
+.intro-portal.active .ring{animation:portalRing 2s ease-out forwards}
+.intro-portal.active .ring:nth-child(2){animation-delay:.2s}
+.intro-portal.active .ring:nth-child(3){animation-delay:.4s}
+.intro-portal.active .ring:nth-child(4){animation-delay:.6s}
+
+@keyframes portalRing{
+  0%{transform:scale(.3);opacity:1;border-color:var(--cyan)}
+  100%{transform:scale(2.5);opacity:0;border-color:transparent}
+}
+
+/* Electric sparks */
+.intro-spark{
+  position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;
+  pointer-events:none;z-index:3;box-shadow:0 0 8px var(--cyan),0 0 16px var(--cyan);
+  opacity:0;
+}
+.intro-spark.burst{
+  animation:sparkBurst .7s ease-out forwards;
+}
+@keyframes sparkBurst{
+  0%{opacity:1;transform:translate(0,0) scale(1)}
+  100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0)}
+}
+
+/* Opening animation */
+.intro-overlay.opening .intro-login-btn{
+  animation:loginConfirm .8s var(--ease) forwards;
+}
+@keyframes loginConfirm{
+  0%{transform:scale(1);opacity:1;border-color:rgba(0,245,255,.5)}
+  50%{transform:scale(1.08);opacity:1;border-color:#fff;box-shadow:0 0 60px rgba(0,245,255,.7)}
+  100%{transform:scale(0);opacity:0;border-color:transparent}
+}
+
+.intro-overlay.opening .intro-avatar{
+  animation:avatarZoomOut .7s var(--ease) .1s forwards;
+}
+@keyframes avatarZoomOut{
+  to{transform:scale(2);opacity:0}
+}
+
+.intro-overlay.opening .intro-name{
+  animation:textBlurOut .6s var(--ease) .05s forwards;
+}
+@keyframes textBlurOut{
+  to{filter:blur(10px);opacity:0;transform:scale(1.1)}
+}
+
+.intro-overlay.opening{
+  animation:overlayFadeOut .7s var(--ease) .3s forwards;
+}
+@keyframes overlayFadeOut{
+  to{opacity:0;visibility:hidden}
+}
+
+/* Particle burst on open */
+.intro-particle{
+  position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;
+  background:var(--cyan);box-shadow:0 0 12px var(--cyan);opacity:0;
+}
+.intro-particle.burst{
+  animation:particleBurst .8s var(--ease) forwards;
+}
+@keyframes particleBurst{
+  0%{opacity:1;transform:translate(0,0) scale(1)}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .intro-avatar{width:120px;height:120px}
+  .intro-login-btn{width:140px;height:50px}
+  .intro-login-btn .btn-text{font-size:.7rem;letter-spacing:.14em}
+  .intro-portal{width:220px;height:220px}
+}

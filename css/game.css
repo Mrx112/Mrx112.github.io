@@ -1,0 +1,93 @@
+/* =====================================================================
+   MINI GAME — TERMINAL BREACH CHALLENGE
+   ===================================================================== */
+
+/* Modal backdrop */
+.game-backdrop{
+  position:fixed;inset:0;background:rgba(2,6,15,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  z-index:800;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s;
+}
+.game-backdrop.open{opacity:1;visibility:visible}
+
+/* Modal window */
+.game-modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92) translateY(20px);
+  width:min(94vw,820px);max-height:88vh;z-index:810;
+  background:rgba(4,12,26,.96);border:1px solid rgba(0,245,255,.2);border-radius:18px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 60px rgba(0,245,255,.08);
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),transform .5s var(--ease),visibility .4s;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.game-modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1) translateY(0)}
+
+/* Header */
+.game-header{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1rem 1.3rem;border-bottom:1px solid rgba(0,245,255,.12);
+  background:rgba(0,245,255,.03);
+}
+.game-title{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;color:var(--cyan)}
+.game-score{font-family:var(--mono);font-size:.68rem;color:var(--green);letter-spacing:.08em}
+.game-close{
+  width:32px;height:32px;border-radius:8px;border:1px solid rgba(0,245,255,.2);
+  background:rgba(0,245,255,.04);color:var(--text);cursor:pointer;
+  display:grid;place-items:center;font-size:1.1rem;transition:all .25s;
+}
+.game-close:hover{background:rgba(255,95,86,.15);border-color:rgba(255,95,86,.5);color:#ff5f56}
+
+/* Terminal body */
+.game-body{
+  flex:1;padding:1.2rem 1.4rem;font-family:var(--mono);font-size:.78rem;line-height:1.85;
+  color:var(--text);overflow-y:auto;max-height:55vh;min-height:260px;
+  background:rgba(0,8,18,.5);
+}
+.game-line{opacity:0;transform:translateY(6px);transition:all .35s var(--ease)}
+.game-line.show{opacity:1;transform:none}
+.game-line .prompt{color:var(--green)}
+.game-line .cmd{color:#fff}
+.game-line .out{color:var(--cyan);padding-left:.6rem;display:block}
+.game-line .ok{color:var(--green);padding-left:.6rem;display:block}
+.game-line .err{color:#ff5f56;padding-left:.6rem;display:block}
+.game-line .warn{color:#ffaa00;padding-left:.6rem;display:block}
+.game-line .info{color:var(--dim);padding-left:.6rem;display:block;font-style:italic}
+.cmd-text{color:var(--cyan);font-weight:700;letter-spacing:.04em}
+.game-line .flag{color:var(--green);padding-left:.6rem;display:block;text-shadow:0 0 12px rgba(0,255,136,.5);font-weight:700;letter-spacing:.05em}
+
+/* Input area */
+.game-input-row{
+  display:flex;align-items:center;gap:.5rem;padding:.9rem 1.4rem;
+  border-top:1px solid rgba(0,245,255,.1);background:rgba(0,245,255,.02);
+}
+.game-input-prompt{font-family:var(--mono);font-size:.78rem;color:var(--green);white-space:nowrap}
+.game-input{
+  flex:1;background:transparent;border:none;color:#fff;font-family:var(--mono);font-size:.78rem;
+  outline:none;caret-color:var(--cyan);letter-spacing:.02em;
+}
+.game-input::placeholder{color:rgba(0,245,255,.25);font-style:italic}
+
+/* Progress bar */
+.game-progress{
+  height:2px;background:rgba(0,245,255,.1);position:relative;overflow:hidden;
+}
+.game-progress-bar{
+  position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));
+  box-shadow:0 0 10px var(--cyan);transition:width .5s var(--ease);
+}
+
+/* Animations */
+@keyframes glitchText{
+  0%,100%{transform:none;opacity:1}
+  20%{transform:translate(-2px,1px);opacity:.7}
+  40%{transform:translate(2px,-1px);opacity:.9}
+  60%{transform:translate(-1px,-1px);opacity:.6}
+  80%{transform:translate(1px,1px);opacity:.8}
+}
+.game-line.flag-line{animation:glitchText .6s ease-in-out}
+
+/* Responsive */
+@media(max-width:768px){
+  .game-modal{width:96vw;max-height:92vh;border-radius:14px}
+  .game-body{padding:1rem;font-size:.72rem;max-height:50vh;min-height:220px}
+  .game-header{padding:.8rem 1rem}
+  .game-input-row{padding:.7rem 1rem}
+}

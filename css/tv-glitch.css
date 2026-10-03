@@ -1,0 +1,83 @@
+/* TV SIGNAL LOSS / GLITCH EFFECT FOR 3D MODEL */
+.hero-3d{
+  position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  opacity:0.85;
+}
+
+/* Scan lines overlay */
+.hero-3d::after{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,.15) 2px,
+    rgba(0,0,0,.15) 4px
+  );
+  opacity:.4;
+}
+
+/* TV static noise */
+.hero-3d::before{
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:0;
+  mix-blend-mode:overlay;
+  animation:tvStatic 0.5s steps(4) infinite;
+}
+
+@keyframes tvStatic{
+  0%{opacity:0;transform:translateY(0)}
+  25%{opacity:0.3;transform:translateY(-2px)}
+  50%{opacity:0;transform:translateY(1px)}
+  75%{opacity:0.2;transform:translateY(-1px)}
+  100%{opacity:0;transform:translateY(0)}
+}
+
+/* Horizontal tear / signal break */
+.hero-3d.tearing::after{
+  animation:horizontalTear 0.15s steps(2) forwards;
+}
+
+@keyframes horizontalTear{
+  0%{clip-path:inset(0 0 0 0);transform:translateX(0)}
+  25%{clip-path:inset(30% 0 40% 0);transform:translateX(-8px)}
+  50%{clip-path:inset(60% 0 10% 0);transform:translateX(5px)}
+  75%{clip-path:inset(10% 0 70% 0);transform:translateX(-3px)}
+  100%{clip-path:inset(0 0 0 0);transform:translateX(0)}
+}
+
+/* Color channel split (RGB shift) */
+.hero-3d.rgb-split canvas{
+  animation:rgbShift 0.2s steps(1) forwards;
+}
+
+@keyframes rgbShift{
+  0%{filter:none}
+  25%{filter:drop-shadow(-3px 0 0 rgba(255,0,0,.5)) drop-shadow(3px 0 0 rgba(0,255,255,.5))}
+  50%{filter:drop-shadow(-1px 0 0 rgba(255,0,0,.3)) drop-shadow(2px 0 0 rgba(0,255,255,.3))}
+  75%{filter:drop-shadow(-4px 0 0 rgba(255,0,0,.6)) drop-shadow(4px 0 0 rgba(0,255,255,.6))}
+  100%{filter:none}
+}
+
+/* Signal loss - model disappears briefly */
+.hero-3d.signal-loss canvas{
+  animation:signalLoss 0.3s steps(1) forwards;
+}
+
+@keyframes signalLoss{
+  0%{opacity:1;filter:none}
+  30%{opacity:0;filter:brightness(2) saturate(0)}
+  60%{opacity:0.5;filter:brightness(1.5) contrast(2)}
+  100%{opacity:1;filter:none}
+}
+
+/* Responsive */
+@media(max-width:1100px){
+  .hero-3d{opacity:0.5}
+  .hero-3d::after{opacity:.25}
+}
+@media(max-width:768px){
+  .hero-3d{opacity:0.35}
+  .hero-3d::after{opacity:.2}
+}

@@ -1,5 +1,5 @@
 (function(){
-  const roles = ['Network Engineer','Full Stack Developer','Cyber Security Enthusiast','Linux Administrator','Network Automation'];
+  const roles = ['Full Stack Developer','Systems Automator','Network Engineer','Cyber Security Enthusiast','Linux Administrator'];
   let ri=0, ci=0, del=false, started=false;
   const tgt = () => document.getElementById('typedText');
 
@@ -15,7 +15,7 @@
   function populateTerminal(){
     const lines=[
       {type:'prompt',text:'whoami'},
-      {type:'out',text:'adi_susilo // network_engineer & fullstack_dev'},
+      {type:'out',text:'adi_susilo // fullstack_dev & network_automator'},
       {type:'prompt',text:'ping -c1 undip.ac.id'},
       {type:'out',text:'64 bytes from 10.100.0.1: icmp_seq=1 ttl=64'},
       {type:'ok',text:'time=0.892 ms ✓'},
