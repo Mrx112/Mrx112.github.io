@@ -1,21 +1,20 @@
 (function(){
   function init(){
-    // initialize modules
-    if(window.NetCanvas) NetCanvas.init();
-    if(window.SiteCursor) SiteCursor.init();
-    if(window.Effects) Effects.init();
-    if(window.GSAPInit) GSAPInit.init();
-    if(window.MiniGame) MiniGame.init();
-    if(window.UI) UI.init(); // preloader -> hero intro -> terminal
+    if(window.lucide) lucide.createIcons();
+    if(window.NetCanvas) NetCanvas.init(); // starts preloading the frame sequence
+    if(window.Portfolio) Portfolio.init();
+
+    // Reveal animations wait until the visitor logs in, so they play on screen
+    const reveal = ()=>{ if(window.Effects) Effects.init(); };
+    if(window.Intro) Intro.init({ onEnter: reveal });
+    else{
+      document.documentElement.classList.remove('overflow-hidden');
+      reveal();
+    }
 
     // single RAF loop
-    let last = performance.now();
-    function frame(now){
-      const dt = Math.min(0.05, (now - last)/1000); // clamp dt
-      last = now;
-      if(window.NetCanvas) NetCanvas.update(dt);
-      if(window.SiteCursor) SiteCursor.update(dt);
-      if(window.Effects) Effects.update(dt);
+    function frame(){
+      if(window.NetCanvas) NetCanvas.update();
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
