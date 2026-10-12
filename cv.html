@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adi Susilo — Curriculum Vitae</title>
+<meta name="description" content="Curriculum vitae of Adi Susilo — Network Engineer, System Administrator, IT Solutions Specialist, Network Security and Full Stack Developer.">
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      mono: ['Inter', 'system-ui', 'sans-serif']
+    } } }
+  };
+</script>
+<style type="text/tailwindcss">
+  @layer components {
+    .glass { @apply rounded-xl border border-white/15 bg-white/[0.04] backdrop-blur-md; }
+    .label { @apply font-mono text-[10px] uppercase tracking-[0.15em] text-white/60; }
+    .section-title { @apply flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white; }
+    .section-title::after { content: ''; @apply h-px flex-1 bg-white/15; }
+    .chip { @apply rounded-md border border-white/15 bg-white/5 px-2.5 py-1 text-xs text-white/85; }
+    .btn-primary { @apply inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-white/85; }
+    .btn-ghost { @apply inline-flex items-center gap-2 rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/20; }
+    .job { @apply relative pl-6; }
+    .job::before { content: ''; @apply absolute left-[-5px] top-2 h-2.5 w-2.5 rounded-full bg-white ring-4 ring-white/10; }
+    .job-list { @apply mt-2 list-disc space-y-1 pl-4 text-sm leading-relaxed text-white/80 marker:text-white/40; }
+  }
+</style>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0a0a0a; }
+  .cv-grid-bg {
+    background-image:
+      radial-gradient(ellipse at top, rgba(255,255,255,.07), transparent 60%),
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 100% 100%, 48px 48px, 48px 48px;
+  }
+  .rise { animation: rise .7s ease-out both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+
+  /* Print / Save as PDF: plain white A4 */
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff !important; color: #111 !important; }
+    .cv-grid-bg, .no-print { display: none !important; }
+    .rise { animation: none !important; }
+    * { color: #111 !important; border-color: #ddd !important; background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; }
+    .job::before { background: #111 !important; }
+    a { text-decoration: none; }
+    .print-break { break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="min-h-screen text-white antialiased">
+<div class="cv-grid-bg pointer-events-none fixed inset-0" aria-hidden="true"></div>
+
+<!-- Top bar -->
+<header class="no-print sticky top-0 z-20 border-b border-white/15 bg-black/50 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-5 sm:px-8">
+    <a href="./index.html" class="inline-flex items-center gap-2 text-sm text-white/85 transition-colors hover:text-white">
+      <i data-lucide="arrow-left" width="16" height="16"></i>
+      <span class="hidden sm:inline">Back to portfolio</span>
+      <span class="sm:hidden">Portfolio</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button type="button" onclick="window.print()" class="btn-ghost hidden sm:inline-flex">
+        <i data-lucide="printer" width="16" height="16"></i> Print
+      </button>
+      <a href="./cv/Adi_Susilo_CV.pdf" download class="btn-primary">
+        <i data-lucide="download" width="16" height="16"></i> Download PDF
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="relative mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+
+  <!-- Header -->
+  <section class="rise print-break flex flex-col gap-6 sm:flex-row sm:items-center">
+    <img src="./img/me-portrait.jpg" alt="Adi Susilo" class="h-32 w-28 shrink-0 rounded-xl border border-white/15 object-cover sm:h-36 sm:w-32">
+    <div>
+      <span class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-white">Curriculum Vitae</span>
+      <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">Adi Susilo</h1>
+      <p class="mt-3 font-mono text-[11px] uppercase leading-relaxed tracking-[0.15em] text-white/70">
+        Network Engineer · System Administrator · IT Solutions Specialist · Network Security · Full Stack Developer
+      </p>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/85">
+        IT professional experienced in managing institutional networks, handling hardware installations and keeping IT operations stable in campus and enterprise environments.
+      </p>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        <li class="chip">Network Operations</li>
+        <li class="chip">Linux Server</li>
+        <li class="chip">Field Support</li>
+        <li class="chip">Fiber Optic</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+
+    <!-- Sidebar -->
+    <aside class="space-y-6">
+      <section class="glass rise print-break p-6" style="animation-delay:.1s">
+        <h2 class="section-title">Contact</h2>
+        <ul class="mt-5 space-y-4 text-sm">
+          <li class="flex items-start gap-3">
+            <i data-lucide="phone" width="16" height="16" class="mt-0.5 shrink-0 text-white/60"></i>
+            <div><p class="label">Phone / WhatsApp</p><a href="https://wa.me/6282228918758" target="_blank" rel="noopener" class="text-white/90 hover:text-white">+62 822 2891 8758</a></div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="mail" width="16" height="16" class="mt-0.5 shrink-0 text-white/60"></i>
+            <div><p class="label">Email</p><a href="mailto:adisuarno29@gmail.com" class="break-all text-white/90 hover:text-white">adisuarno29@gmail.com</a></div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="linkedin" width="16" height="16" class="mt-0.5 shrink-0 text-white/60"></i>
+            <div><p class="label">LinkedIn</p><a href="https://linkedin.com/in/adi-susilo-7184451a2" target="_blank" rel="noopener" class="break-all text-white/90 hover:text-white">linkedin.com/in/adi-susilo-7184451a2</a></div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="github" width="16" height="16" class="mt-0.5 shrink-0 text-white/60"></i>
+            <div><p class="label">GitHub</p><a href="https://github.com/Mrx112" target="_blank" rel="noopener" class="text-white/90 hover:text-white">github.com/mrx112</a></div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="globe" width="16" height="16" class="mt-0.5 shrink-0 text-white/60"></i>
+            <div><p class="label">Portfolio</p><a href="https://mrx112.github.io" class="text-white/90 hover:text-white">mrx112.github.io</a></div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="glass rise print-break p-6" style="animation-delay:.2s">
+        <h2 class="section-title">Education</h2>
+        <ul class="mt-5 space-y-5">
+          <li>
+            <h3 class="text-sm font-semibold">Bachelor of Information Systems (S1)</h3>
+            <p class="mt-1 label">Universitas Semarang · 2021 — 2027</p>
+          </li>
+          <li>
+            <h3 class="text-sm font-semibold">Bachelor of Informatics Engineering (S1)</h3>
+            <p class="mt-1 label">Universitas STEKOM Semarang · 2024 — 2029</p>
+          </li>
+          <li>
+            <h3 class="text-sm font-semibold">Computer &amp; Network Engineering (TKJ)</h3>
+            <p class="mt-1 label">SMK Negeri 11 Malang · 2015 — 2018</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="glass rise print-break p-6" style="animation-delay:.3s">
+        <h2 class="section-title">Core Skills</h2>
+        <ul class="mt-5 space-y-5">
+          <li>
+            <h3 class="flex items-center gap-2 text-sm font-semibold"><i data-lucide="satellite-dish" width="16" height="16" class="text-white/60"></i> Networking &amp; Field Operations</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-white/75">Campus network design and maintenance, fiber optic installation, core switch/router configuration and 24/7 uptime monitoring.</p>
+          </li>
+          <li>
+            <h3 class="flex items-center gap-2 text-sm font-semibold"><i data-lucide="server" width="16" height="16" class="text-white/60"></i> Systems &amp; Infrastructure</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-white/75">Linux Ubuntu server administration, workstation setup, hardware troubleshooting and MySQL/PostgreSQL management.</p>
+          </li>
+          <li>
+            <h3 class="flex items-center gap-2 text-sm font-semibold"><i data-lucide="wrench" width="16" height="16" class="text-white/60"></i> Tools &amp; Communication</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-white/75">Python scripting, JavaScript, Figma, technical reporting and on-site coordination with teams and clients.</p>
+          </li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- Main column -->
+    <div class="space-y-6">
+      <section class="glass rise print-break p-6 sm:p-8" style="animation-delay:.15s">
+        <h2 class="section-title">About Me</h2>
+        <p class="mt-5 text-sm leading-relaxed text-white/85 sm:text-base">
+          Komdigi-certified IT professional focused on network infrastructure, operating systems and field support. Intensive experience in campus and enterprise environments, optimising network performance, minimising downtime and making sure devices and databases are ready for use.
+        </p>
+      </section>
+
+      <section class="glass rise p-6 sm:p-8" style="animation-delay:.25s">
+        <h2 class="section-title">Work Experience</h2>
+        <ol class="mt-6 ml-1 space-y-7 border-l border-white/15">
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">PT. Bach Multi Global</h3>
+              <span class="label">May 2026 — Present</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">Network Engineer (On-Site) — Service at UNDIP</p>
+            <ul class="job-list">
+              <li>Maintains the UNDIP campus network at 2.04 Gbps capacity through core device management and routing optimisation.</li>
+              <li>Plans, audits and maintains switches, routers and access points to ensure stable connectivity.</li>
+              <li>Provides fast on-site response for incident management and recovery of critical network services.</li>
+            </ul>
+          </li>
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">PT. Karya Mitra Mechatronics Sejahtera (KMMS)</h3>
+              <span class="label">Feb 2026 — May 2026</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">Network Engineer (On-Site) — Service at UNDIP</p>
+            <ul class="job-list">
+              <li>Structured network audits, device maintenance and infrastructure health monitoring for the campus environment.</li>
+              <li>Site surveys and fiber optic restoration to reduce downtime and maintain link quality.</li>
+              <li>Prepared weekly and monthly performance reports for stakeholders.</li>
+            </ul>
+          </li>
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">PT Golden Tekstil Indonesia Kendal</h3>
+              <span class="label">Oct 2025 — Dec 2025</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">IT Hardware Specialist</p>
+            <ul class="job-list">
+              <li>Managed computer and network device installation and hardware maintenance to keep office operations running smoothly.</li>
+              <li>Diagnosed and repaired PC components to reduce user downtime.</li>
+            </ul>
+          </li>
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">PT. BMPNet</h3>
+              <span class="label">Mar 2024 — Oct 2025</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">Network Field Technician</p>
+            <ul class="job-list">
+              <li>Device installation and network maintenance across client locations, including on-site troubleshooting.</li>
+              <li>Monitored network performance and ensured services operated according to SOP.</li>
+            </ul>
+          </li>
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">PT. Candi Agung Pratama</h3>
+              <span class="label">Jul 2021 — Jun 2022</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">Administration Staff</p>
+            <ul class="job-list">
+              <li>Supported operations through documentation management, warehouse inventory and transaction data modelling.</li>
+            </ul>
+          </li>
+          <li class="job print-break">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="text-base font-semibold">Axioo Service Center Surabaya</h3>
+              <span class="label">Dec 2016 — Mar 2017</span>
+            </div>
+            <p class="mt-1 text-sm text-white/70">IT Specialist (Intern)</p>
+            <ul class="job-list">
+              <li>Inspected devices, installed software and repaired hardware for customer laptops, smartphones and tablets.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <section class="glass rise print-break p-6 sm:p-8" style="animation-delay:.35s">
+        <h2 class="section-title">Certifications &amp; Achievements</h2>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          <li class="rounded-lg border border-white/15 bg-white/[0.03] p-4 sm:col-span-2">
+            <div class="flex items-center gap-2"><i data-lucide="badge-check" width="16" height="16" class="text-white/60"></i><span class="label">Komdigi RI · Mar 2026</span></div>
+            <p class="mt-2 text-sm font-semibold">Intermediate Associate Network Administrator</p>
+            <p class="text-sm font-semibold">Fundamental of Associate Network Administrator</p>
+            <p class="mt-1 text-xs text-white/60">Kementerian Komunikasi dan Digital Republik Indonesia</p>
+          </li>
+          <li class="rounded-lg border border-white/15 bg-white/[0.03] p-4">
+            <div class="flex items-center gap-2"><i data-lucide="bar-chart-3" width="16" height="16" class="text-white/60"></i><span class="label">2024</span></div>
+            <p class="mt-2 text-sm font-semibold">SAP Analytics Cloud &amp; Build Apps</p>
+            <p class="mt-1 text-xs text-white/60">ASEAN Data Science Explorers</p>
+          </li>
+          <li class="rounded-lg border border-white/15 bg-white/[0.03] p-4">
+            <div class="flex items-center gap-2"><i data-lucide="trophy" width="16" height="16" class="text-white/60"></i><span class="label">Jan 2024 · Jan 2022</span></div>
+            <p class="mt-2 text-sm font-semibold">Overall Champion, Cyber Security CTF</p>
+            <p class="mt-1 text-xs text-white/60">Satcyber TNI (2024) &amp; BPJS (2022)</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <footer class="no-print mt-12 flex flex-col gap-4 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+    <p class="font-mono text-[11px] uppercase tracking-[0.15em] text-white/60">© 2026 Adi Susilo</p>
+    <div class="flex flex-wrap gap-2">
+      <a href="./index.html#projects" class="btn-ghost">See projects</a>
+      <a href="mailto:adisuarno29@gmail.com" class="btn-primary">Get in touch <i data-lucide="chevron-right" width="16" height="16"></i></a>
+    </div>
+  </footer>
+</main>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>if(window.lucide) lucide.createIcons();</script>
+</body>
+</html>
